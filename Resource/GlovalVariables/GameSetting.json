@@ -1,0 +1,9 @@
+{
+    "GameSetting": {
+        "fallingBorder": -20.0,
+        "horizonBorder": 100.0,
+        "transitionAnimationDelay": 60,
+        "transitionAnimationLength": 30,
+        "upperBorder": 100.0
+    }
+}

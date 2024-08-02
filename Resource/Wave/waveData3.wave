@@ -1,0 +1,505 @@
+wave 20
+
+enemy a
+position 0 13 0
+velocity 0.0 0.0 0.0
+speed 0.9
+type 8
+frame 30
+
+
+length 380
+
+/////////////////////////////////////////////////////
+
+wave 21
+
+enemy a
+position 0 13 0
+velocity 0.0 0.0 0.0
+speed 0.9
+type 8
+frame 10
+
+enemy a
+position 14 1 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 60
+
+enemy a
+position 14 2 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 70
+
+enemy a
+position 14 3 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 80
+
+enemy a
+position 14 4 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 90
+
+
+enemy a
+position 0 13 0
+velocity 0.0 0.0 0.0
+speed 0.9
+type 8
+frame 300
+
+enemy a
+position -14 6 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 410
+
+enemy a
+position -14 7 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 420
+
+enemy a
+position -14 8 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 430
+
+enemy a
+position -14 9 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 440
+
+length 660
+
+//////////////////////////////////////
+
+wave 22
+
+enemy a
+position 14 3 0
+velocity 0.0 0.0 0.0
+speed 0.9
+type 8
+frame 30
+
+enemy a
+position -14 8 0
+velocity 0.0 0.0 0.0
+speed 0.9
+type 8
+frame 30
+
+length 420
+
+
+/////////////////////////////////////////////////////
+
+wave 23
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 3
+frame 10
+
+enemy a
+position -13 13 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 3
+frame 10
+
+enemy a
+position 0 13 0
+velocity 0.0 0.0 0.0
+speed 0.9
+type 8
+frame 30
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 3
+frame 210
+
+enemy a
+position -13 13 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 3
+frame 210
+
+enemy a
+position -14 6 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 60
+
+enemy a
+position -14 7 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 60
+
+enemy a
+position -14 8 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 60
+
+enemy a
+position 14 1 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 260
+
+enemy a
+position 14 2 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 260
+
+enemy a
+position 14 3 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 260
+
+enemy a
+position 14 4 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 0
+frame 270
+
+
+length 400
+
+////////////////////////////////////////////////////
+wave 24
+
+enemy a
+position -13 13 0
+velocity 0.0 -1 0.0
+speed 0.5
+type 0
+frame 10
+
+enemy a
+position -12 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 20
+
+enemy a
+position -11 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 30
+
+enemy a
+position -10 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 40
+
+enemy a
+position -9 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 50
+
+enemy a
+position -8 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 60
+
+enemy a
+position -7 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 70
+
+enemy a
+position -6 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 80
+
+enemy a
+position -5 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 90
+
+enemy a
+position -4 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 100
+
+enemy a
+position -3 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 110
+
+enemy a
+position -2 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 120
+
+enemy a
+position -1 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 130
+
+enemy a
+position 0 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 140
+
+enemy a
+position 1 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 150
+
+enemy a
+position 13 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 210
+
+enemy a
+position 12 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 220
+
+enemy a
+position 11 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 230
+
+enemy a
+position 10 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 240
+
+enemy a
+position 9 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 250
+
+enemy a
+position 8 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 260
+
+enemy a
+position 7 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 270
+
+enemy a
+position 6 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 280
+
+enemy a
+position 5 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 290
+
+enemy a
+position 4 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 300
+
+enemy a
+position 3 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 310
+
+enemy a
+position 2 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 320
+
+enemy a
+position 1 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 330
+
+enemy a
+position 0 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 340
+
+enemy a
+position -1 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 0
+frame 350
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 2
+frame 60
+
+enemy a
+position -13 13 0
+velocity 1.0 0.0 0.0
+speed 0.3
+type 2
+frame 200
+
+length 480
+
+///////////////////////////////////////
+
+wave 25
+
+enemy a
+position 14 8 0
+velocity -1.0 0.0 0.0
+speed 0.9
+type 8
+frame 20
+
+enemy a
+position 0 13 0
+velocity 0.0 -1.0 0.0
+speed 0.5
+type 7
+frame 10
+
+enemy a
+position 14 8 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 2
+frame 180
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.9
+type 8
+frame 300
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 3
+frame 420
+
+enemy a
+position -13 13 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 3
+frame 420
+
+enemy a
+position -14 1 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 220
+
+enemy a
+position -14 2 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 230
+
+enemy a
+position -14 3 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 240
+
+enemy a
+position -14 4 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 250
+
+length 650

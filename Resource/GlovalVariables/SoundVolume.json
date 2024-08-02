@@ -1,0 +1,16 @@
+{
+    "SoundVolume": {
+        "BlockBGM": 0.10000000149011612,
+        "BoundBGM": 0.10000000149011612,
+        "ClearBGM": 0.10000000149011612,
+        "DeathBGM": 0.5,
+        "DeleteEnemyBGM": 0.10000000149011612,
+        "EnemyPopBGM": 0.05000000074505806,
+        "IngameBGM": 0.10000000149011612,
+        "JumpBGM": 1.0,
+        "ResultBGM": 0.10000000149011612,
+        "ReverceBGM": 0.10000000149011612,
+        "plusWaveBGM": 0.5,
+        "startBGM": 0.30000001192092896
+    }
+}

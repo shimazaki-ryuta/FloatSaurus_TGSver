@@ -1,0 +1,97 @@
+wave 1
+
+enemy a
+position 13 1 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 2 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 3 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 4 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 5 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 6 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 7 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 8 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 9 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 10 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 11 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 12 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+
+length 260
+
+///////////////////////////////////////////////////////////////////
