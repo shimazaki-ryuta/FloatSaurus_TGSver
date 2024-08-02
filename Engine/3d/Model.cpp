@@ -111,7 +111,7 @@ ModelData Model::LoadObjFile(const std::string& directoryPath, const std::string
                 Vector2 texcoord = texcoords[elementIndeices[1] - 1];
                 Vector3 normal = normals[elementIndeices[2] - 1];
                 VertexData vertex = { position,texcoord,normal };
-                modelData.vertices.push_back(vertex);
+                //modelData.vertices.push_back(vertex);
                 triangle[faceVertex] = { position,texcoord,normal };
 
             }
