@@ -166,6 +166,18 @@ void MapManager::WaveRead(uint32_t wave) {
 	}
 }
 
+void MapManager::SetFloor(std::array<int, 27> pos) {
+	MapBuild();
+	int x = 0;
+	for (std::shared_ptr<Map> object : floor_) {
+		if (pos[x] == 1) {
+			object->worldTransform.translation_.y = float(kBlockFloatForce);
+			object->moveDirection_ = -1.0f;
+		}
+		x++;
+	}
+}
+
 void MapManager::WaveReadTutorial(uint32_t wave) {
 	char readString[256];
 	int wavestate[32] = { 0 };
@@ -335,4 +347,23 @@ void MapManager::ApplyGlobalVariables()
 	kBlocckFloatAnimationDelay = globalVariables->GetIntValue(groupName, "FloatAnimationDelay");
 	kReverseFloatAnimationDelay = globalVariables->GetIntValue(groupName, "ReverseAnimationDelay");
 	kReverseCoolTime_ = globalVariables->GetIntValue(groupName, "ReverseCoolTime");
+}
+
+std::array<int, 27>& MapManager::GetFloorPosition() {
+	int p = 0;
+	for (int i = 0; i < 27;i++) {
+		if (floor_[i]->isMove_) {
+			p = int(floor_[i]->moveDirection_) + 1;
+		}
+		else {
+			if (floor_[i]->worldTransform.translation_.y > 1.0f) {
+				p = 1;
+			}
+			else {
+				p = 0;
+			}
+		}
+		floorPos_[i] = p;
+	}
+	return floorPos_;
 }

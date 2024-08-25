@@ -6,6 +6,7 @@
 #include <vector>
 #include "Mymath.h"
 #include "Input.h"
+#include <array>
 class MapManager
 {
 public:
@@ -19,7 +20,7 @@ public:
 		MapState mapState;
 		OBB obb;
 		WorldTransform worldTransform;
-		bool isCollision_=false;
+		bool isCollision_ = false;
 		bool isTouch_ = false;
 		bool moveFlag_ = false;
 		bool isMove_ = false;
@@ -29,7 +30,7 @@ public:
 		uint32_t moveAnimationLength_;
 		void Update();
 		void Move();
-		void OnCollision() ;
+		void OnCollision();
 		void Touch();
 		float moveDirection_;
 		void Reverse();
@@ -40,7 +41,7 @@ public:
 
 	static MapManager* GetInstance();
 	void Initialize();
-	
+
 	void Update();
 	//CSVからマップ情報を格納する
 	void MapRead();
@@ -49,6 +50,8 @@ public:
 
 	//指定ウェーブの床の位置を読み取って移動させる
 	void WaveRead(uint32_t wave);
+	//配列から床の位置を移動
+	void SetFloor(std::array<int, 27> pos);
 
 	void WaveReadTutorial(uint32_t wave);
 
@@ -84,6 +87,10 @@ public:
 	};
 	//中心のブロックが上1か下0か
 	int GetCenterHeight();
+
+	//現在の床のもくひょういちの配列を得る
+	std::array<int, 27>& GetFloorPosition();
+
 private:
 	MapManager() = default;
 	~MapManager() = default;
@@ -109,5 +116,6 @@ private:
 	std::function<void()> cameraShake_;
 	int32_t reverseCoolTime_;
 	int32_t kReverseCoolTime_;
+	std::array<int, 27> floorPos_{0};
 };
 

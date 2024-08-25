@@ -29,6 +29,7 @@
 #include "Input.h"
 #include "FollowCamera.h"
 #include "Engine/Manager/Particle.h"
+#include <array>
 class GameScene :public Iscene
 {
 public:
@@ -168,6 +169,10 @@ private:
 	Vector3 tutorialOffset_;
 	WorldTransform worldTransformTutorial_;
 	uint32_t tutorialTextureHandle_;
+
+	//リスタート用のウェーブ位置データ
+	std::array<int, 27> waveRstertPos_{0};
+
 private:
 	void EnemySpawn(const WorldTransform& worldTransform, EnemyType type);
 };

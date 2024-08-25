@@ -54,6 +54,8 @@ public:
 	bool isSpawn_;
 	bool IsClearTutorial() { return isClearTutorialWave_; };
 	void SetIsEnd(bool is) { isEnd_ = is; };
+	//このフレームでウェーブが切り替わったかどうか
+	bool GetIsChangeWave() { return isChangeWave_; };
 private:
 	WaveManager() = default;
 	~WaveManager() = default;
@@ -141,5 +143,7 @@ private:
 
 	//出現何フレーム前からひょうじするか
 	int cortionDrawFrame_ = 60;
+	//このフレームでウェーブが切り替わったかどうか
+	bool isChangeWave_ = false;
 };
 

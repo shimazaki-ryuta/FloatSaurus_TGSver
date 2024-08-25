@@ -419,6 +419,9 @@ void GameScene::Title() {
 
 void GameScene::InGame() {
 	WaveManager::GetInstance()->Update();
+	if (WaveManager::GetInstance()->GetIsChangeWave()) {
+		waveRstertPos_ = MapManager::GetInstance()->GetFloorPosition();
+	}
 	//viewProjection_.UpdateMatrix();
 	//viewProjection_.TransferMatrix();
 
@@ -1148,7 +1151,8 @@ void GameScene::ReStartWave()
 		sceneNum = 2;
 	}
 	size_t num = WaveManager::GetInstance()->GetWave();
-	MapManager::GetInstance()->WaveRead(uint32_t(num));
+	//MapManager::GetInstance()->WaveRead(uint32_t(num));
+	MapManager::GetInstance()->SetFloor(waveRstertPos_);
 	WaveManager::GetInstance()->SetWave(uint32_t(num));
 	player_->Reset(MapManager::GetInstance()->GetCenterHeight());
 }

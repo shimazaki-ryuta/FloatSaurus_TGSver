@@ -239,6 +239,7 @@ void WaveManager::Initialize() {
 }
 
 void WaveManager::Update() {
+	isChangeWave_ = false;
 	isClearTutorialWave_ = false;
 	cortion_.clear();
 	bool isPopWait = false;//出現待ちのエネミーがいるかどうか
@@ -395,7 +396,7 @@ void WaveManager::Update() {
 		if (waves_.size() - 1 > waveNum_) {
 			isEnd_ = false;
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[PlusWave], Audio::GetInstance()->SoundVolume[PlusWave]);
-
+			isChangeWave_ = true;
 			waveNum_++;
 		}
 		else {
