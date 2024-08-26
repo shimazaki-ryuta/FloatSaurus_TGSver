@@ -34,10 +34,10 @@ class IEnemy
 public:
 	IEnemy();
 	~IEnemy();
-	virtual void Initialize(const Transform& transform, const Vector3& velocity,float moveSpeed,uint32_t texture, Model* model)=0;
-	virtual void Update()=0;
-	virtual void Draw(const ViewProjection& viewProjection)=0;
-	virtual void isCollision(OBB pertner)=0;
+	virtual void Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model) = 0;
+	virtual void Update() = 0;
+	virtual void Draw(const ViewProjection& viewProjection) = 0;
+	virtual void isCollision(OBB pertner) = 0;
 	virtual bool GetIsAlive() { return isAlive_; }
 	virtual OBB& GetOBB() { return obb_; };
 	virtual void SetStartCount(int count) { startCount_ = count; }
@@ -70,6 +70,6 @@ protected:
 	GameScene* gameScene_;
 	Player* player_;
 	int startCount_;
-	 Model* model_;
+	Model* model_;
 };
 
