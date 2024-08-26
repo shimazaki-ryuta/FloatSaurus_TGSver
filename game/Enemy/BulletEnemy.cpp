@@ -10,8 +10,6 @@ BulletEnemy::~BulletEnemy()
 
 void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
 {
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = transform.translate;
@@ -21,10 +19,10 @@ void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity
 	obb_.center = { 300.0f,300.0f,300.0f };
 	GetOrientations(rotateMatrix, obb_.orientation);
 	MoveSpeed_ = moveSpeed;
-	velocity_ = velocity;
-	velocity_.x = std::clamp(velocity_.x, -1.0f, 1.0f);
-	velocity_.y = std::clamp(velocity_.y, -1.0f, 1.0f);
-	velocity_.z = std::clamp(velocity_.z, -1.0f, 1.0f);
+	velocity_ = CreateVelocity(transform.translate);
+	//velocity_.x = std::clamp(velocity_.x, -1.0f, 1.0f);
+	//velocity_.y = std::clamp(velocity_.y, -1.0f, 1.0f);
+	//velocity_.z = std::clamp(velocity_.z, -1.0f, 1.0f);
 	texindex_ = texture;
 	velocity_ = Multiply(MoveSpeed_, velocity_);
 	type_ = kBullet;
@@ -33,6 +31,8 @@ void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity
 	worldTransform_.UpdateMatrix();
 	model_ = model;
 	model_->setIsLighting(false);
+
+	//方向によって向きを変えてる
 	if (velocity_.x > 0.0f) {
 		worldTransform_.rotation_.y = 0.0f;
 	}

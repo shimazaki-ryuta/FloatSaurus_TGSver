@@ -36,6 +36,8 @@ public:
 
 	OBB& GetOBB() { return obb_; };
 	OBB& GetFloatTrigger() { return obbFloatTrigger_; };
+	//敵との当たり判定をとるかどうかのフラグを取得
+	bool GetColliderFlag() { return isColliderFlag; };
 
 	void SetJoyState(XINPUT_STATE* joystate) { joyState_ = joystate; };
 	void SetPreJoyState(XINPUT_STATE* joystate) { preJoyState_ = joystate; };
@@ -52,6 +54,11 @@ public:
 	bool GetIsRecovJump() { return isRecovJump_; };
 	WorldTransform& GetWorldTransformBack() { return worldTransformback_; };
 	void SetPosition(const Vector3& position) { worldTransform_.translation_ = position; };
+
+private:
+
+	void ImGui();
+
 private:
 	Input* input_ = nullptr;
 	XINPUT_STATE* joyState_;
@@ -64,6 +71,8 @@ private:
 
 	OBB obb_;
 	OBB obbFloatTrigger_;
+	//敵との当たり判定をとるかどうかのフラグ
+	bool isColliderFlag = true;
 
 	float direction_;
 	Vector3 velocity_;

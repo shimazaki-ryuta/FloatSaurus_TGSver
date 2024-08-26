@@ -205,7 +205,7 @@ void WaveManager::Initialize() {
 	isEnd_ = false;
 
 	finalSprite_.reset(new Sprite);
-	finalSprite_->Initialize({-500,-160,0,0}, { 500,160,0,0 });
+	finalSprite_->Initialize({ -500,-160,0,0 }, { 500,160,0,0 });
 	finalTextureHandle_ = Texturemanager::GetInstance()->Load("Resource/final.png");
 	t_ = 0.0f;
 	isFinal_ = false;
@@ -232,7 +232,7 @@ void WaveManager::Initialize() {
 	cortionPlane_->Initialize();
 	cortionTextureHandle_ = Texturemanager::GetInstance()->Load("Resource/mark.png");
 	arrowTextureHandle_ = Texturemanager::GetInstance()->Load("Resource/yajirushi.png");
-	for (size_t index = 0; index < kCortionMax_;index++) {
+	for (size_t index = 0; index < kCortionMax_; index++) {
 		worldTransformCortions_[index].Initialize();
 		worldTransformArrows_[index].Initialize();
 	}
@@ -243,8 +243,8 @@ void WaveManager::Update() {
 	cortion_.clear();
 	bool isPopWait = false;//出現待ちのエネミーがいるかどうか
 	for (EnemyData& enemy : waves_[size_t(waveNum_)].enemyDatas) {
-		if (currentFrame_ >= enemy.frame - cortionDrawFrame_ && currentFrame_ < enemy.frame && cortion_.size() < kCortionMax_-1) {
-			 cortion_.push_back(enemy.translate);
+		if (currentFrame_ >= enemy.frame - cortionDrawFrame_ && currentFrame_ < enemy.frame && cortion_.size() < kCortionMax_ - 1) {
+			cortion_.push_back(enemy.translate);
 		}
 		if (currentFrame_ == enemy.frame) {
 			//Enemyの生成処理	
@@ -270,7 +270,6 @@ void WaveManager::Update() {
 			case kReflect://1
 				newEnemy = new ReflectEnemy();
 				newEnemy->SetStartCount(gameScene_->BulletStartCount);
-				//newEnemy->SetPlayer(player_);
 				transform.scale = { 3.0f,3.0f,3.0f };
 
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->reverceEnemyModel_.get());
@@ -279,15 +278,11 @@ void WaveManager::Update() {
 			case kBound://2
 				newEnemy = new BoundEnemy();
 				transform.scale = { 3.0f,3.0f,3.0f };
-				//{ 0.3f, -1.0f, 0.0f }
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->ballEnemyModel_.get());
 				enemyList_->push_back(newEnemy); break;
 			case kTire://3
 				newEnemy = new TireEnemy();
-
 				transform.scale = { 3.0f,3.0f,3.0f };
-
-				//{ 0.3f, -1.0f, 0.0f }
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->wheelEnemyModel_.get());
 
 				enemyList_->push_back(newEnemy);
@@ -296,14 +291,12 @@ void WaveManager::Update() {
 				break;
 			case kRaser://5
 				newEnemy = new BeamEnemy();
-				//{ 0.3f, -1.0f, 0.0f }
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->reverceEnemyModel_.get());
 				newEnemy->SetStartCount(gameScene_->BulletStartCount);
 				enemyList_->push_back(newEnemy);
 				break;
 			case kAimBulletWidth://6
 				newEnemy = new AImBulletWidthEnemy();
-				//{ 0.3f, -1.0f, 0.0f }
 				transform.scale = { 3.0f,3.0f,3.0f };
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get());
 				newEnemy->SetPlayer(player_);
@@ -312,8 +305,6 @@ void WaveManager::Update() {
 				break;
 			case kAimBulletHeight://7
 				newEnemy = new AimBulletEnemy();
-				//{ 0.3f, -1.0f, 0.0f }
-				//enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_);
 				transform.scale = { 3.0f,3.0f,3.0f };
 				newEnemy->SetPlayer(player_);
 				newEnemy->SetGameScene(gameScene_);
@@ -322,7 +313,6 @@ void WaveManager::Update() {
 				break;
 			case kAimBound://8
 				newEnemy = new PlayerAimBallEnemy();
-				//{ 0.3f, -1.0f, 0.0f }
 				transform.scale = { 3.0f,3.0f,3.0f };
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->targetballEnemyModel_.get());
 				newEnemy->SetPlayer(player_);
@@ -331,15 +321,12 @@ void WaveManager::Update() {
 				break;
 			case kStageUp://9
 				newEnemy = new StageChangeEnemy();
-				//{ 0.3f, -1.0f, 0.0f }
-				//enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_);
 				newEnemy->SetType(kStageUp);
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->reverceEnemyModel_.get());
 				enemyList_->push_back(newEnemy);
 				break;
 			case kStageDown://10
 				newEnemy = new StageChangeEnemy();
-				//enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_);
 				newEnemy->SetType(kStageDown);
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->reverceEnemyModel_.get());
 				enemyList_->push_back(newEnemy);
@@ -348,8 +335,6 @@ void WaveManager::Update() {
 				break;
 			default://else
 				newEnemy = new ReflectEnemy();
-				//enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_);
-
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->ballEnemyModel_.get());
 				enemyList_->push_back(newEnemy);
 				break;
@@ -362,7 +347,7 @@ void WaveManager::Update() {
 	}
 	currentFrame_++;
 
-	if (waveNum_<5) {
+	if (waveNum_ < 5) {
 		isFirst_ = true;
 		firstAlpha_ = float(5 - waveNum_) / 5.0f;
 		t_ += 0.1f;
@@ -378,7 +363,7 @@ void WaveManager::Update() {
 	else if (!(waves_.size() - 1 > waveNum_)) {
 		isFinal_ = true;
 		t_ += 0.1f;
-		if (t_ >1.0f){
+		if (t_ > 1.0f) {
 			t_ = 1.0f;
 		}
 		float c1 = 1.70158f;
@@ -391,7 +376,7 @@ void WaveManager::Update() {
 		isFirst_ = false;
 		t_ = 0.0f;
 	}
-	if (currentFrame_ >= waves_[size_t(waveNum_)].length + waveInterval_ || ((!isPopWait && enemyList_->size() ==0) && (waves_.size()-1 != waveNum_))) {
+	if (currentFrame_ >= waves_[size_t(waveNum_)].length + waveInterval_ || ((!isPopWait && enemyList_->size() == 0) && (waves_.size() - 1 != waveNum_))) {
 		if (waves_.size() - 1 > waveNum_) {
 			isEnd_ = false;
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[PlusWave], Audio::GetInstance()->SoundVolume[PlusWave]);
@@ -404,7 +389,7 @@ void WaveManager::Update() {
 		currentFrame_ = 0;
 	}
 	if (waveNum_ > drawerWaveNum_ && !isChangeNum_) {
-		num0 = int32_t(drawerWaveNum_+1) % 10 ;
+		num0 = int32_t(drawerWaveNum_ + 1) % 10;
 		num1 = num0 + 1;
 		if (num1 >= 10) {
 			num1 = 0;
@@ -449,7 +434,6 @@ void WaveManager::TutorialUpdate() {
 				break;
 			default://else
 				newEnemy = new ReflectEnemy();
-				//enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_);
 
 				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->ballEnemyModel_.get());
 				enemyList_->push_back(newEnemy);
@@ -473,7 +457,7 @@ void WaveManager::TutorialUpdate() {
 		finalScale_ = float(1 + c3 * std::pow(t_ - 1.0f, 3) + c1 * std::pow(t_ - 1.0f, 2));
 
 	}
-	
+
 	else {
 		isFirst_ = false;
 		t_ = 0.0f;
@@ -507,14 +491,14 @@ void WaveManager::Draw() {
 	lowNum1->Draw(transform, uv, { 1.0f,1.0f,1.0f,1.0f }, numberTextureHandle_[num2]);
 	transform.translate = s3;
 	highNum1->Draw(transform, uv, { 1.0f,1.0f,1.0f,1.0f }, numberTextureHandle_[num3]);
-	transform.translate = {640.0f,250.0f,0};
-	waveSprite_->Draw(transform, uv,{ 1.0f,1.0f,1.0f,1.0f },waveTextureHandle_);
+	transform.translate = { 640.0f,250.0f,0 };
+	waveSprite_->Draw(transform, uv, { 1.0f,1.0f,1.0f,1.0f }, waveTextureHandle_);
 
-	if (isFinal_){
+	if (isFinal_) {
 		transform.translate = { 700.0f,200.0f,0 };
 		transform.rotate.z = 0.3f;
-		transform.scale = Vector3{0.3f,0.3f,0.3f} * finalScale_;
-		finalSprite_->Draw(transform, uv, { 1.0f,1.0f,1.0f,1.0f },finalTextureHandle_);
+		transform.scale = Vector3{ 0.3f,0.3f,0.3f } *finalScale_;
+		finalSprite_->Draw(transform, uv, { 1.0f,1.0f,1.0f,1.0f }, finalTextureHandle_);
 	}
 	if (isFirst_) {
 		transform.translate = { 700.0f,200.0f,0 };
@@ -529,11 +513,11 @@ void WaveManager::DrawTutorial() {
 	Transform transform = { { 0.3f,0.3f,0.1f },{0,0,0},{640,250,0} };
 	Transform transform2 = { { 0.3f,0.2f,0.1f },{0,0,0},{640,90,0} };
 
-	if (waveNum_==0) {
+	if (waveNum_ == 0) {
 		tutorialSprite1_->Draw(transform2, uv, { 1.0f,1.0f,1.0f,1.0f }, tutorialTextureHandles_[3]);
 
 	}
-	if (waveNum_==2) {
+	if (waveNum_ == 2) {
 		tutorialSprite1_->Draw(transform, uv, { 1.0f,1.0f,1.0f,1.0f }, tutorialTextureHandles_[waveNum_]);
 	}
 	else {
@@ -553,20 +537,20 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 	toCameraRotate.m[3][1] = 0;
 	toCameraRotate.m[3][2] = 0;
 	for (Vector3& position : cortion_) {
-		worldTransformCortions_[index].scale_ = {3.0f,3.0f,1.0f};
+		worldTransformCortions_[index].scale_ = { 3.0f,3.0f,1.0f };
 		worldTransformCortions_[index].translation_ = position;
-		if (std::abs(position.x) > 52.0f || (position.y >52.0f || position.y < 0)) {
-			worldTransformCortions_[index].translation_.x = std::clamp(position.x,-52.0f,52.0f);
+		if (std::abs(position.x) > 52.0f || (position.y > 52.0f || position.y < 0)) {
+			worldTransformCortions_[index].translation_.x = std::clamp(position.x, -52.0f, 52.0f);
 			worldTransformCortions_[index].translation_.y = std::clamp(position.y, 0.0f, 52.0f);
 			Matrix4x4 rotate = DirectionToDirection({ 1.0f,0,0.0f }, Normalise(position - worldTransformCortions_[index].translation_));
-			if (Normalise(position - worldTransformCortions_[index].translation_).x <0 && Normalise(position - worldTransformCortions_[index].translation_).y == 0) {
-				rotate = Multiply(rotate,MakeRotateXMatrix(3.141592f));
+			if (Normalise(position - worldTransformCortions_[index].translation_).x < 0 && Normalise(position - worldTransformCortions_[index].translation_).y == 0) {
+				rotate = Multiply(rotate, MakeRotateXMatrix(3.141592f));
 			}
-			worldTransformArrows_[index].rotation_ = TransformNormal(worldTransformArrows_[index].rotation_,rotate);
+			worldTransformArrows_[index].rotation_ = TransformNormal(worldTransformArrows_[index].rotation_, rotate);
 			worldTransformArrows_[index].scale_ = { 3.0f,3.0f,1.0f };
 			worldTransformArrows_[index].translation_ = worldTransformCortions_[index].translation_;
 			worldTransformArrows_[index].translation_.z += 0.1f;
-			worldTransformArrows_[index].matWorld_ = Multiply(Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), MakeTranslateMatrix({2.0f,0.0f,0.0f})), rotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
+			worldTransformArrows_[index].matWorld_ = Multiply(Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), MakeTranslateMatrix({ 2.0f,0.0f,0.0f })), rotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
 			worldTransformArrows_[index].TransferMatrix();
 			//worldTransformArrows_[index].UpdateMatrix();
 			cortionPlane_->Draw(worldTransformArrows_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, arrowTextureHandle_);
@@ -574,7 +558,7 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 		worldTransformCortions_[index].translation_.z -= 1.0f;
 		worldTransformCortions_[index].matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), toCameraRotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
 		worldTransformCortions_[index].TransferMatrix();
-		cortionPlane_->Draw(worldTransformCortions_[index],viewProjection, { 1.0f,1.0f,1.0f,1.0f },cortionTextureHandle_);
+		cortionPlane_->Draw(worldTransformCortions_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, cortionTextureHandle_);
 		index++;
 	}
 	cortion_.clear();

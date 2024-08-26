@@ -186,7 +186,7 @@
     <ClCompile Include="game\Enemy\BulletEnemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="game\Enemy\IENEMY.CPP">
+    <ClCompile Include="game\Enemy\IEnemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="game\Enemy\ReflectEnemy.cpp">

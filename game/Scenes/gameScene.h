@@ -80,7 +80,6 @@ private:
 	XINPUT_STATE preJoyState_;
 	
 	std::unique_ptr<Player> player_;
-	//std::list<Enemy*> enemys_;
 	std::list <IEnemy*>enemys_;
 	float EnemymoveSpeed_;
 	Vector3 enemyVelocity_;
@@ -168,7 +167,5 @@ private:
 	Vector3 tutorialOffset_;
 	WorldTransform worldTransformTutorial_;
 	uint32_t tutorialTextureHandle_;
-private:
-	void EnemySpawn(const WorldTransform& worldTransform, EnemyType type);
 };
 
