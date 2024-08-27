@@ -496,6 +496,11 @@ void GameScene::InGame() {
  				bullet->isCollision();
 			}
 			if (IsCollision(bullet->GetOBB(), player_->GetOBB())) {
+			#ifdef _DEBUG
+				if (player_->GetColliderFlag() == false) {
+					return;
+				}
+			#endif
 				Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[Death], Audio::GetInstance()->SoundVolume[Death]);
 
 				ReStart();

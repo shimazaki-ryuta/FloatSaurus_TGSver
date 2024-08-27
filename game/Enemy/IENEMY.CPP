@@ -10,16 +10,16 @@ IEnemy::~IEnemy() {
 Vector3 IEnemy::CreateVelocity(Vector3 translate){
 
     Vector3 velocity = {0.0f,0.0f,0.0f};
-    if (translate.x == 56) {
+    if (translate.x >= 56) {
         velocity.x = -1;
     }
-    if (translate.x == -56) {
+    if (translate.x <= -56) {
         velocity.x = 1;
     }
-    if (translate.y == 52) {
+    if (translate.y >= 52) {
         velocity.y = -1;
     }
-    if (translate.y == -52) {
+    if (translate.y <= -52) {
         velocity.y = 1;
     }
     velocity.x = std::clamp(velocity.x, -1.0f, 1.0f);

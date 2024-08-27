@@ -20,9 +20,7 @@ void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity
 	GetOrientations(rotateMatrix, obb_.orientation);
 	MoveSpeed_ = moveSpeed;
 	velocity_ = CreateVelocity(transform.translate);
-	//velocity_.x = std::clamp(velocity_.x, -1.0f, 1.0f);
-	//velocity_.y = std::clamp(velocity_.y, -1.0f, 1.0f);
-	//velocity_.z = std::clamp(velocity_.z, -1.0f, 1.0f);
+
 	texindex_ = texture;
 	velocity_ = Multiply(MoveSpeed_, velocity_);
 	type_ = kBullet;
