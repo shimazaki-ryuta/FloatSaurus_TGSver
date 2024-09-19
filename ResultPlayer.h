@@ -35,7 +35,11 @@ private:
 	WorldTransform worldTransformRightLeg_;
 	//WorldTransform worldTransformFire_;
 
+	//追加
+	WorldTransform worldTransformAntenaTarget_;
+
 	Vector3 antenaOffset_;
+	Vector3 antenaTargetOffset_;
 
 	Vector3 codeOffset_;
 	Vector3 headOffset_;

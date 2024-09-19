@@ -118,7 +118,7 @@ void Player::Initialize(){
 	worldTransformFire_.parent_ = &worldTransformback_;
 
 	worldTransformAntenaTarget_.Initialize();
-	worldTransformAntenaTarget_.parent_ = &worldTransformModel_;
+	worldTransformAntenaTarget_.parent_ = &worldTransformHead_;
 
 	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformHead_.matWorld_);
 	worldTransformAntena_.translation_ = Lerp(1.0f, worldTransformAntena_.translation_, antenaPos);
@@ -180,7 +180,7 @@ void Player::Reset(int height) {
 	worldTransformRightLeg_.rotation_ = { 0,0,0 };
 
 	worldTransformAntenaTarget_.Initialize();
-	worldTransformAntenaTarget_.parent_ = &worldTransformModel_;
+	worldTransformAntenaTarget_.parent_ = &worldTransformHead_;
 
 	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformHead_.matWorld_);
 	worldTransformAntena_.translation_ = Lerp(1.0f, worldTransformAntena_.translation_, antenaPos);

@@ -32,12 +32,14 @@ void ResultPlayer::Initialize() {
 	worldTransformLeftLeg_.parent_ = &worldTransformModel_;
 	worldTransformRightLeg_.Initialize();
 	worldTransformRightLeg_.parent_ = &worldTransformModel_;
+	worldTransformAntenaTarget_.Initialize();
+	worldTransformAntenaTarget_.parent_ = &worldTransformHead_;
 	
-	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformHead_.matWorld_);
+	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformAntenaTarget_.matWorld_);
 	worldTransformAntena_.translation_ = Lerp(1.0f, worldTransformAntena_.translation_, antenaPos);
 	worldTransformAntena_.UpdateMatrix();
-	worldTransformCode_.translation_ = Lerp(0.5f, worldTransformAntena_.translation_, worldTransformHead_.GetWorldPos());
-	Matrix4x4 rotateCode = DirectionToDirection({ 0,0,1.0f }, Normalise(worldTransformHead_.GetWorldPos() - worldTransformAntena_.translation_));
+	worldTransformCode_.translation_ = Lerp(0.5f, worldTransformAntena_.translation_, worldTransformAntenaTarget_.GetWorldPos());
+	Matrix4x4 rotateCode = DirectionToDirection({ 0,0,1.0f }, Normalise(worldTransformAntenaTarget_.GetWorldPos() - worldTransformAntena_.translation_));
 	worldTransformCode_.matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCode_.scale_), rotateCode), MakeTranslateMatrix(worldTransformCode_.translation_));
 	worldTransformCode_.TransferMatrix();
 	
@@ -68,6 +70,7 @@ void ResultPlayer::ApplyGlobalVariables()
 	leftOffset_ = globalVariables->GetVector3Value(groupName2, "left");
 	rightOffset_ = globalVariables->GetVector3Value(groupName2, "right");
 	charctorScale_ = globalVariables->GetVector3Value(groupName2, "charactorScale");
+	antenaTargetOffset_ = globalVariables->GetVector3Value(groupName2, "antenaTarget");
 }
 
 
@@ -105,15 +108,16 @@ void ResultPlayer::Update() {
 	worldTransformRightLeg_.translation_.y -= 0.1f;
 	worldTransformRightLeg_.UpdateMatrix();
 		
+	worldTransformAntenaTarget_.translation_ = antenaTargetOffset_;
+	worldTransformAntenaTarget_.UpdateMatrix();
 
-
-	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformHead_.matWorld_);
+	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformAntenaTarget_.matWorld_);
 	worldTransformAntena_.translation_ = Lerp(0.1f, worldTransformAntena_.translation_, antenaPos);
 	worldTransformAntena_.scale_ = { 0.7f,0.7f,0.7f };
 	worldTransformAntena_.UpdateMatrix();
 	worldTransformCode_.scale_ = { 0.5f,0.5f,0.7f };
-	worldTransformCode_.translation_ = Lerp(0.5f, worldTransformAntena_.translation_, worldTransformHead_.GetWorldPos());
-	Matrix4x4 rotateCode = DirectionToDirection({ 0,0,1.0f }, Normalise(worldTransformHead_.GetWorldPos() - worldTransformAntena_.translation_));
+	worldTransformCode_.translation_ = Lerp(0.5f, worldTransformAntena_.translation_, worldTransformAntenaTarget_.GetWorldPos());
+	Matrix4x4 rotateCode = DirectionToDirection({ 0,0,1.0f }, Normalise(worldTransformAntenaTarget_.GetWorldPos() - worldTransformAntena_.translation_));
 	worldTransformCode_.matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCode_.scale_), rotateCode), MakeTranslateMatrix(worldTransformCode_.translation_));
 	worldTransformCode_.TransferMatrix();
 	
