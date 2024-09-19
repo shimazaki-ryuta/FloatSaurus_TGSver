@@ -15,10 +15,13 @@ public:
 	virtual void Draw()=0;
 
 	virtual void Finalize() = 0;
-	 int GetSceneNum() { return sceneNum; }
+	int GetSceneNum() { return sceneNum; }
+	bool GetIsEnd() { return isEnd_; };
 
 protected:
 
 	static int sceneNum;
+
+	static bool isEnd_;
 };
 

@@ -50,6 +50,9 @@ void SceneManager::Run() {
 
 		
 		blueMoon_->EndFrame();
+		if (sceneArr_[sceneNum_]->GetIsEnd()) {
+			break;
+		}
 	}
 	CoUninitialize();
 	blueMoon_->Finalize();

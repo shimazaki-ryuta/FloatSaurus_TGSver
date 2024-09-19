@@ -17,6 +17,8 @@ public:
 	bool Left();
 	bool Right();
 	
+	bool CloseWindow();
+
 private:
 	GameController() = default;
 	~GameController() = default;

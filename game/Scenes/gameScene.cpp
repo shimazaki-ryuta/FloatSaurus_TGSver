@@ -326,6 +326,10 @@ void GameScene::Update()
 
 	worldTransformStart_.matWorld_ = Multiply(Multiply( MakeScaleMatrix(worldTransformStart_.scale_) , toCameraRotate),MakeTranslateMatrix(worldTransformStart_.translation_));
 	worldTransformStart_.TransferMatrix();
+
+	if (GameController::GetInstance()->CloseWindow()) {
+		isEnd_ = true;
+	}
 }
 
 

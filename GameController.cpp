@@ -94,3 +94,15 @@ bool GameController::Right() {
 	}
 	return false;
 }
+
+bool GameController::CloseWindow() {
+	if (Input::GetInstance()->PressKey(DIK_ESCAPE)) {
+		rastInput_ = 0;
+		return true;
+	}
+	if (joyState_.Gamepad.wButtons & XINPUT_GAMEPAD_BACK) {
+		rastInput_ = 1;
+		return true;
+	}
+	return false;
+}
