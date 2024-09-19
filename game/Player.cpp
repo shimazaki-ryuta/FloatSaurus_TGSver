@@ -38,6 +38,7 @@ void Player::Initialize(){
 	globalVariables->AddItem(groupName2, "bodyMove", floatBodyMove_);
 	globalVariables->AddItem(groupName2, "charactorScale", charctorScale_);
 
+	globalVariables->AddItem(groupName2, "antenaTarget", antenaTargetOffset_);
 
 	worldTransform_.Initialize();
 	worldTransform_.scale_ = {1.0f,1.0f,1.0f};
@@ -116,6 +117,9 @@ void Player::Initialize(){
 	worldTransformFire_.Initialize();
 	worldTransformFire_.parent_ = &worldTransformback_;
 
+	worldTransformAntenaTarget_.Initialize();
+	worldTransformAntenaTarget_.parent_ = &worldTransformModel_;
+
 	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformHead_.matWorld_);
 	worldTransformAntena_.translation_ = Lerp(1.0f, worldTransformAntena_.translation_, antenaPos);
 	worldTransformAntena_.UpdateMatrix();
@@ -174,6 +178,9 @@ void Player::Reset(int height) {
 	worldTransformRightLeg_.parent_ = &worldTransformModel_;
 	worldTransformRightLeg_.scale_ = { 1.0f,1.0f,1.0f };
 	worldTransformRightLeg_.rotation_ = { 0,0,0 };
+
+	worldTransformAntenaTarget_.Initialize();
+	worldTransformAntenaTarget_.parent_ = &worldTransformModel_;
 
 	Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformHead_.matWorld_);
 	worldTransformAntena_.translation_ = Lerp(1.0f, worldTransformAntena_.translation_, antenaPos);
@@ -304,15 +311,16 @@ void Player::Update() {
 		worldTransformFire_.translation_ = fireOffset_;
 		worldTransformFire_.UpdateMatrix();
 
+		worldTransformAntenaTarget_.translation_ = antenaTargetOffset_;
+		worldTransformAntenaTarget_.UpdateMatrix();
 
-
-		Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformHead_.matWorld_);
+		Vector3 antenaPos = vectorTransform(antenaOffset_, worldTransformAntenaTarget_.matWorld_);
 		worldTransformAntena_.translation_ = Lerp(0.1f, worldTransformAntena_.translation_, antenaPos);
 		worldTransformAntena_.scale_ = { 0.7f,0.7f,0.7f };
 		worldTransformAntena_.UpdateMatrix();
 		worldTransformCode_.scale_ = { 0.5f,0.5f,0.7f };
-		worldTransformCode_.translation_ = Lerp(0.5f, worldTransformAntena_.translation_, worldTransformHead_.GetWorldPos());
-		Matrix4x4 rotateCode = DirectionToDirection({ 0,0,1.0f }, Normalise(worldTransformHead_.GetWorldPos() - worldTransformAntena_.translation_));
+		worldTransformCode_.translation_ = Lerp(0.5f, worldTransformAntena_.translation_, worldTransformAntenaTarget_.GetWorldPos());
+		Matrix4x4 rotateCode = DirectionToDirection({ 0,0,1.0f }, Normalise(worldTransformAntenaTarget_.GetWorldPos() - worldTransformAntena_.translation_));
 		worldTransformCode_.matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCode_.scale_), rotateCode), MakeTranslateMatrix(worldTransformCode_.translation_));
 		worldTransformCode_.TransferMatrix();
 		}
@@ -476,7 +484,8 @@ void Player::ApplyGlobalVariables()
 	rightOffset_ = globalVariables->GetVector3Value(groupName2, "right");
 	fireOffset_ = globalVariables->GetVector3Value(groupName2, "fire");
 
-	
+	antenaTargetOffset_ = globalVariables->GetVector3Value(groupName2, "antenaTarget");
+
 	legRotate_ = globalVariables->GetFloatValue(groupName2, "legRotate");
 	floatBodyIdle_ = globalVariables->GetFloatValue(groupName2, "bodyIdle");
 	floatBodyMove_ = globalVariables->GetFloatValue(groupName2, "bodyMove");

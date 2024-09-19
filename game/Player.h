@@ -110,6 +110,8 @@ private:
 	WorldTransform worldTransformRightLeg_;
 	WorldTransform worldTransformFire_;
 
+	//追加
+	WorldTransform worldTransformAntenaTarget_;
 
 	Vector3 charctorScale_ = {1.0f,1.0f,1.0f};
 
@@ -123,6 +125,7 @@ private:
 	Vector3 rightOffset_;
 	Vector3 fireOffset_;
 
+	Vector3 antenaTargetOffset_;
 
 	bool isMove_;
 	float theta_;
