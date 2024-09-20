@@ -1,9 +1,21 @@
 {
     "GameSetting": {
+        "DropAlpha": 0.6000000238418579,
         "DropAreaScale": [
             116.0,
             50.0,
             0.009999999776482582
+        ],
+        "DropColor": [
+            0.800000011920929,
+            0.0,
+            0.0
+        ],
+        "TutorialAlpha": 0.800000011920929,
+        "TutorialColor": [
+            0.0,
+            0.6000000238418579,
+            0.6000000238418579
         ],
         "fallingBorder": -5.0,
         "horizonBorder": 100.0,

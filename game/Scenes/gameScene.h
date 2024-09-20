@@ -176,6 +176,10 @@ private:
 	//落下エリア
 	WorldTransform worldTransformDropArie_;
 	Vector3 dropAreaScale_;
+	std::unique_ptr<Plane> dropArea_;
+
+	Vector4 dropColor_;
+	Vector4 tutorialColor_;
 
 private:
 	void EnemySpawn(const WorldTransform& worldTransform, EnemyType type);

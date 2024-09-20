@@ -43,7 +43,10 @@ void GameScene::Initialize()
 	globalVariables->AddItem(groupName, "transitionAnimationLength", int32_t(transitionAnimationLength_));
 	globalVariables->AddItem(groupName, "transitionAnimationDelay", int32_t(transitionAnimationDelay_));
 	globalVariables->AddItem(groupName, "DropAreaScale", dropAreaScale_);
-
+	globalVariables->AddItem(groupName, "DropColor", Vector3{ dropColor_.x,dropColor_.y,dropColor_.z });
+	globalVariables->AddItem(groupName, "DropAlpha", dropColor_.w);
+	globalVariables->AddItem(groupName, "TutorialColor", Vector3{ dropColor_.x,dropColor_.y,dropColor_.z });
+	globalVariables->AddItem(groupName, "TutorialAlpha", dropColor_.w);
 	const char* groupName2 = "Title";
 	globalVariables->AddItem(groupName2, "lineScale", lineScale_);
 	globalVariables->AddItem(groupName2, "linePosition", linePosition_);
@@ -184,7 +187,7 @@ void GameScene::Initialize()
 	lifeTextureHandle_ = textureManager_->Load("Resource/UI/lifeUI.png");
 	particletextureHandle= textureManager_->Load("Resource/circle.png");
 	particle_ = std::make_unique<Particle>();
-	particle_->Initialize(1000000000);
+	particle_->Initialize(10000);
 	Transform t = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
 
 	worldTransformDropArie_.Initialize();
@@ -206,6 +209,9 @@ void GameScene::Initialize()
 	worldTransformInnerTutorialArie_.UpdateMatrix();
 	tutorialArea_.reset(new Plane);
 	tutorialArea_->Initialize();
+
+	dropArea_.reset(new Plane);
+	dropArea_->Initialize();
 
 	tutorialTextureHandle_ = textureManager_->Load("Resource/tutorial.png");
 
@@ -861,10 +867,10 @@ void GameScene::Draw3D()
 		titleLine_->Draw(worldTransformLine_, viewProjection_, { 1.0f,1.0f ,1.0f ,1.0f }, blackTextureHandle_);
 		titleChar_->Draw(worldTransformStart_, viewProjection_,{1.0f,1.0f,1.0f,1.0f},startTextureHandle_);
 
-		tutorialArea_->Draw(worldTransformInnerTutorialArie_, viewProjection_, { 0.8f,0.0f,0.0f,0.8f }, fadeTextureHandle_);
+		tutorialArea_->Draw(worldTransformInnerTutorialArie_, viewProjection_, tutorialColor_, fadeTextureHandle_);
 		titleChar_->Draw(worldTransformTutorial_, viewProjection_, { 1.0f,1.0f,1.0f,1.0f }, tutorialTextureHandle_);
 	}
-	tutorialArea_->Draw(worldTransformDropArie_, viewProjection_, { 0.8f,0.0f,0.0f,0.8f }, fadeTextureHandle_);
+	dropArea_->Draw(worldTransformDropArie_, viewProjection_, dropColor_, fadeTextureHandle_);
 	WaveManager::GetInstance()->Draw3D(viewProjection_);
 	blueMoon_->PariclePreDraw();
 	
@@ -885,6 +891,16 @@ void GameScene::ApplyGlobalVariables()
 	transitionAnimationLength_ = globalVariables->GetIntValue(groupName, "transitionAnimationLength");
 	transitionAnimationDelay_ = globalVariables->GetIntValue(groupName, "transitionAnimationDelay");
 	dropAreaScale_ = globalVariables->GetVector3Value(groupName, "DropAreaScale");
+
+	dropColor_.x = globalVariables->GetVector3Value(groupName, "DropColor").x;
+	dropColor_.y = globalVariables->GetVector3Value(groupName, "DropColor").y;
+	dropColor_.z = globalVariables->GetVector3Value(groupName, "DropColor").z;
+	dropColor_.w = globalVariables->GetFloatValue(groupName, "DropAlpha");
+
+	tutorialColor_.x = globalVariables->GetVector3Value(groupName, "TutorialColor").x;
+	tutorialColor_.y = globalVariables->GetVector3Value(groupName, "TutorialColor").y;
+	tutorialColor_.z = globalVariables->GetVector3Value(groupName, "TutorialColor").z;
+	tutorialColor_.w = globalVariables->GetFloatValue(groupName, "TutorialAlpha");
 
 	const char* groupName2 = "Title";
 	lineScale_ = globalVariables->GetVector3Value(groupName2, "lineScale");
