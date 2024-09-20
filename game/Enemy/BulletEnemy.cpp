@@ -62,7 +62,7 @@ void BulletEnemy::Update()
 	
 	
 	if (currentCount >= startCount_) {
-		worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+		worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_ * 1.2f);
 
 		Matrix4x4 rotateMatrix = MakeRotateMatrix(Vector3{ 0.0f,0.0f,0.0f });
 		obb_.size = { worldTransform_.scale_.x / 2.0f ,worldTransform_.scale_.y / 2.0f ,worldTransform_.scale_.z / 2.0f };
