@@ -703,7 +703,7 @@ void GameScene::Tutorial() {
 				energyEmmitPoint_ = &object->worldTransform.translation_;
 			}
 		}
-		if (IsCollision(player_->GetFloatTrigger(), object->obb)) {
+		if (IsCollision(player_->GetFloatTrigger(), object->obb) && WaveManager::GetInstance()->GetWave() == 1) {
 			object->Touch();
 		}
 	}
