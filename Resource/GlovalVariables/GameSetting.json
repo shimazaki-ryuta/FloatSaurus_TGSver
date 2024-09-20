@@ -14,8 +14,8 @@
         "TutorialAlpha": 0.800000011920929,
         "TutorialColor": [
             0.0,
-            0.6000000238418579,
-            0.6000000238418579
+            1.0,
+            0.25
         ],
         "fallingBorder": -5.0,
         "horizonBorder": 100.0,
