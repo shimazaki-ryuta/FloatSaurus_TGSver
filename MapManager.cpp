@@ -225,7 +225,7 @@ void MapManager::Update() {
 		for (std::shared_ptr<Map> object : floor_) {
 			object->Update();
 		}
-		if (GameController::GetInstance()->Reverse() && reverseCoolTime_ <= 0) {
+		if (GameController::GetInstance()->Reverse() && reverseCoolTime_ <= 0 && isCanReverse_) {
 			Audio::GetInstance()->SoundPlayWave( Audio::GetInstance()->handle_[Reverce], Audio::GetInstance()->SoundVolume[Reverce]);
 
 			for (std::shared_ptr<Map> object : floor_) {

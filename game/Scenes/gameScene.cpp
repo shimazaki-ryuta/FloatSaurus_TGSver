@@ -640,6 +640,12 @@ void GameScene::Tutorial() {
 	ImGui::InputInt("SceneNum", &sceneNum);
 
 	ImGui::End();
+
+	MapManager::GetInstance()->SetIsCanReverse(true);
+	if(WaveManager::GetInstance()->GetWave() < 2) {
+		MapManager::GetInstance()->SetIsCanReverse(false);
+	}
+
 	player_->Update();
 	if (player_->GetWorldTransform().GetWorldPos().y < fallingBorder_) {
 		followCamera_->Shake();
@@ -1063,7 +1069,7 @@ void GameScene::Draw2D() {
 	}
 	jumpSprite_->Draw(jump_, uv, jumpmaterial, jumpTextureHandle_);
 	Vector4 reversMaterial= { 1.0f,1.0f,1.0f,1.0f };
-	if (!MapManager::GetInstance()->IsReversAble()) {
+	if (!MapManager::GetInstance()->IsReversAble() || !MapManager::GetInstance()->GetIsCanReverse()) {
 		reversMaterial.w = 0.5f;
 	}
 	reverseSprite_->Draw(reverse_, uv, reversMaterial, reverseTextureHandle_);

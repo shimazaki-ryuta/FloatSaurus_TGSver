@@ -91,6 +91,8 @@ public:
 	//現在の床のもくひょういちの配列を得る
 	std::array<int, 27>& GetFloorPosition();
 
+	void SetIsCanReverse(bool is) { isCanReverse_ = is; };
+	bool GetIsCanReverse() {return isCanReverse_; };
 private:
 	MapManager() = default;
 	~MapManager() = default;
@@ -117,5 +119,8 @@ private:
 	int32_t reverseCoolTime_;
 	int32_t kReverseCoolTime_;
 	std::array<int, 27> floorPos_{0};
+
+	//反転できるか(チュートリアル用)
+	bool isCanReverse_ = true;
 };
 
