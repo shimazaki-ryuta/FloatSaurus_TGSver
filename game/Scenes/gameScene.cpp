@@ -704,7 +704,7 @@ void GameScene::Tutorial() {
 			}
 		}
 		if (IsCollision(player_->GetFloatTrigger(), object->obb) && WaveManager::GetInstance()->GetWave() == 1) {
-			object->Touch();
+			//object->Touch();
 		}
 	}
 	for (std::shared_ptr<MapManager::Map> object : floors) {
