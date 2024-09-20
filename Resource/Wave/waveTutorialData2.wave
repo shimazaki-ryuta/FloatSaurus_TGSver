@@ -12,182 +12,84 @@ position -12 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 40
 
 enemy a
 position -11 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 50
 
 enemy a
 position -10 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 60
 
 enemy a
 position -9 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 70
 
 enemy a
 position -8 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 80
 
 enemy a
 position -7 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 90
 
 enemy a
 position -6 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 100
 
 enemy a
 position -5 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 110
 
 enemy a
 position -4 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 120
 
 enemy a
 position -3 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 130
 
 enemy a
 position -2 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
+frame 140
 
 enemy a
 position -1 13 0
 velocity 0.0 -1.0 0.0
 speed 0.3
 type 0
-frame 30
-
-enemy a
-position 0 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 1 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 2 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 3 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 4 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 5 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 6 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 7 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 8 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 9 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 10 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 11 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 12 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
-
-enemy a
-position 13 13 0
-velocity 0.0 -1.0 0.0
-speed 0.3
-type 0
-frame 30
+frame 150
 
 
 length 150
