@@ -703,8 +703,8 @@ void GameScene::Tutorial() {
 				energyEmmitPoint_ = &object->worldTransform.translation_;
 			}
 		}
-		if (IsCollision(player_->GetFloatTrigger(), object->obb) && WaveManager::GetInstance()->GetWave() == 1) {
-			//object->Touch();
+		if (IsCollision(player_->GetFloatTrigger(), object->obb)) {
+			object->Touch();
 		}
 	}
 	for (std::shared_ptr<MapManager::Map> object : floors) {
