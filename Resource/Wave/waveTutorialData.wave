@@ -1,7 +1,7 @@
 wave 1
 
 enemy a
-position 13 5 0
+position 13 4 0
 velocity -1.0 0.0 0.0
 speed 0.3
 type 0
@@ -35,6 +35,26 @@ speed 0.3
 type 0
 frame 30
 
+enemy a
+position 13 3 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 2 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
+
+enemy a
+position 13 1 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 0
+frame 30
 
 length 260
 
