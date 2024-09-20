@@ -173,6 +173,10 @@ private:
 	//リスタート用のウェーブ位置データ
 	std::array<int, 27> waveRstertPos_{0};
 
+	//落下エリア
+	WorldTransform worldTransformDropArie_;
+	Vector3 dropAreaScale_;
+
 private:
 	void EnemySpawn(const WorldTransform& worldTransform, EnemyType type);
 };

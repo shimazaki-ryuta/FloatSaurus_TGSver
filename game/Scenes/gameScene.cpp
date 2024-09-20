@@ -42,6 +42,7 @@ void GameScene::Initialize()
 
 	globalVariables->AddItem(groupName, "transitionAnimationLength", int32_t(transitionAnimationLength_));
 	globalVariables->AddItem(groupName, "transitionAnimationDelay", int32_t(transitionAnimationDelay_));
+	globalVariables->AddItem(groupName, "DropAreaScale", dropAreaScale_);
 
 	const char* groupName2 = "Title";
 	globalVariables->AddItem(groupName2, "lineScale", lineScale_);
@@ -185,6 +186,9 @@ void GameScene::Initialize()
 	particle_ = std::make_unique<Particle>();
 	particle_->Initialize(1000000000);
 	Transform t = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
+
+	worldTransformDropArie_.Initialize();
+
 	ApplyGlobalVariables();
 	//particle_->AddParticle({ t }, 10);
 	Audio::GetInstance()->SoundPlayloop(Audio::GetInstance()->handle_[inGameBGM], Audio::GetInstance()->SoundVolume[inGameBGM]);
@@ -205,6 +209,9 @@ void GameScene::Initialize()
 
 	tutorialTextureHandle_ = textureManager_->Load("Resource/tutorial.png");
 
+	worldTransformDropArie_.scale_ = dropAreaScale_;
+	worldTransformDropArie_.translation_.y = fallingBorder_ - worldTransformDropArie_.scale_.y * 0.5f;
+	worldTransformDropArie_.UpdateMatrix();
 }
 
 void GameScene::Update()
@@ -857,6 +864,7 @@ void GameScene::Draw3D()
 		tutorialArea_->Draw(worldTransformInnerTutorialArie_, viewProjection_, { 0.8f,0.0f,0.0f,0.8f }, fadeTextureHandle_);
 		titleChar_->Draw(worldTransformTutorial_, viewProjection_, { 1.0f,1.0f,1.0f,1.0f }, tutorialTextureHandle_);
 	}
+	tutorialArea_->Draw(worldTransformDropArie_, viewProjection_, { 0.8f,0.0f,0.0f,0.8f }, fadeTextureHandle_);
 	WaveManager::GetInstance()->Draw3D(viewProjection_);
 	blueMoon_->PariclePreDraw();
 	
@@ -876,7 +884,7 @@ void GameScene::ApplyGlobalVariables()
 	horizonBorder_ = globalVariables->GetFloatValue(groupName, "horizonBorder");
 	transitionAnimationLength_ = globalVariables->GetIntValue(groupName, "transitionAnimationLength");
 	transitionAnimationDelay_ = globalVariables->GetIntValue(groupName, "transitionAnimationDelay");
-
+	dropAreaScale_ = globalVariables->GetVector3Value(groupName, "DropAreaScale");
 
 	const char* groupName2 = "Title";
 	lineScale_ = globalVariables->GetVector3Value(groupName2, "lineScale");
@@ -932,7 +940,9 @@ void GameScene::ApplyGlobalVariables()
 	Audio::GetInstance()->SoundVolume[EnemyPop] = globalVariables->GetFloatValue(groupNameSound, "EnemyPopBGM");
 	Audio::GetInstance()->SoundVolume[PlusWave] = globalVariables->GetFloatValue(groupNameSound, "plusWaveBGM");
 	
-	
+	worldTransformDropArie_.scale_ = dropAreaScale_;
+	worldTransformDropArie_.translation_.y = fallingBorder_ - worldTransformDropArie_.scale_.y*0.5f;
+	worldTransformDropArie_.UpdateMatrix();
 }
 
 void GameScene::EnemySpawn(const WorldTransform& worldTransform, EnemyType type)
