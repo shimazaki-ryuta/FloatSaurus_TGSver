@@ -133,7 +133,7 @@ void PlayerAimBallEnemy::BehaviorLeaveUpdate()
 	t *= t;
 	t *= -1;
 	t += 1.0f;
-	float easedT = t == 1.0f ? 1.0f : 1.0f - std::powf(2.0f, -10.0f * t);
+	float easedT = 1.0f - std::powf(1.0f - t, 2.0f);
 	worldTransform_.translation_.z = easedT * 10.0f;
 	standBycount--;
 	worldTransform_.rotation_.z = standBycount / 5.0f;
@@ -154,7 +154,7 @@ void PlayerAimBallEnemy::BehaviorLeaveInitialize()
 {
 	count++;
 	Vector3 target = player_->GetWorldTransform().translation_;
-	target.y = 60.0f;
+	target.y = 50.0f;
 	velocity_ = Subtract(target, worldTransform_.translation_);
 	velocity_ = Normalise(velocity_);
 	float leaveSpeed;
