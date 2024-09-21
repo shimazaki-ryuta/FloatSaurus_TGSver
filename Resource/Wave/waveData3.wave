@@ -8,7 +8,7 @@ type 8
 frame 30
 
 
-length 380
+length 1000
 
 /////////////////////////////////////////////////////
 
@@ -85,7 +85,7 @@ speed 0.5
 type 0
 frame 440
 
-length 660
+length 1000
 
 //////////////////////////////////////
 
@@ -108,9 +108,78 @@ frame 30
 length 1000
 
 
-/////////////////////////////////////////////////////
+///////////////////////////////////////
 
 wave 23
+
+enemy a
+position 14 13 0
+velocity -1.0 0.0 0.0
+speed 0.9
+type 8
+frame 20
+
+enemy a
+position 14 8 0
+velocity -1.0 0.0 0.0
+speed 0.3
+type 2
+frame 180
+
+enemy a
+position 14 -13 0
+velocity -1.0 0.0 0.0
+speed 0.9
+type 8
+frame 300
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 3
+frame 420
+
+enemy a
+position -13 13 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 3
+frame 420
+
+enemy a
+position -14 1 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 220
+
+enemy a
+position -14 2 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 230
+
+enemy a
+position -14 3 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 240
+
+enemy a
+position -14 4 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 0
+frame 250
+
+length 1000
+
+/////////////////////////////////////////////////////
+
+wave 24
 
 enemy a
 position 13 13 0
@@ -200,7 +269,15 @@ frame 270
 length 1000
 
 ////////////////////////////////////////////////////
-wave 24
+wave 25
+
+
+enemy a
+position 0 13 0
+velocity 0.0 0.0 0.0
+speed 0.9
+type 8
+frame 30
 
 enemy a
 position -13 13 0
@@ -426,73 +503,4 @@ speed 0.3
 type 2
 frame 200
 
-length 1000
-
-///////////////////////////////////////
-
-wave 25
-
-enemy a
-position 14 8 0
-velocity -1.0 0.0 0.0
-speed 0.9
-type 8
-frame 20
-
-enemy a
-position 14 8 0
-velocity -1.0 0.0 0.0
-speed 0.3
-type 2
-frame 180
-
-enemy a
-position 13 13 0
-velocity -1.0 0.0 0.0
-speed 0.9
-type 8
-frame 300
-
-enemy a
-position 13 13 0
-velocity -1.0 0.0 0.0
-speed 0.5
-type 3
-frame 420
-
-enemy a
-position -13 13 0
-velocity 1.0 0.0 0.0
-speed 0.5
-type 3
-frame 420
-
-enemy a
-position -14 1 0
-velocity 1.0 0.0 0.0
-speed 0.5
-type 0
-frame 220
-
-enemy a
-position -14 2 0
-velocity 1.0 0.0 0.0
-speed 0.5
-type 0
-frame 230
-
-enemy a
-position -14 3 0
-velocity 1.0 0.0 0.0
-speed 0.5
-type 0
-frame 240
-
-enemy a
-position -14 4 0
-velocity 1.0 0.0 0.0
-speed 0.5
-type 0
-frame 250
-
-length 3000
+length 500
