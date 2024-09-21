@@ -18,7 +18,7 @@ void PlayerAimBallEnemy::Initialize(const Transform& transform, const Vector3& v
 	worldTransform_.scale_ = transform.scale;
 	worldTransform_.Initialize();
 	MoveSpeed_ = moveSpeed;
-	velocity_ = CreateVelocity(transform.translate);
+	velocity_ = velocity;
 
 	texindex_ = texture;
 	velocity_ = Multiply(MoveSpeed_, velocity_);

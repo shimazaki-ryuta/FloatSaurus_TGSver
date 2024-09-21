@@ -19,7 +19,7 @@ void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity
 	obb_.center = { 300.0f,300.0f,300.0f };
 	GetOrientations(rotateMatrix, obb_.orientation);
 	MoveSpeed_ = moveSpeed;
-	velocity_ = CreateVelocity(transform.translate);
+	velocity_ = velocity;
 
 	texindex_ = texture;
 	velocity_ = Multiply(MoveSpeed_, velocity_);

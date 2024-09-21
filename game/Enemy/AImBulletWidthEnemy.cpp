@@ -20,7 +20,7 @@ void AImBulletWidthEnemy::Initialize(const Transform& transform, const Vector3& 
 	worldTransform_.scale_ = transform.scale;
 	BulletScale_ = { 1.0f,1.0f,1.0f };
 	MoveSpeed_ = moveSpeed;
-	velocity_ = CreateVelocity(transform.translate);
+	velocity_ = velocity;
 
 	texindex_ = texture;
 	velocity_ = Multiply(MoveSpeed_, velocity_);

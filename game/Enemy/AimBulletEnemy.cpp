@@ -18,7 +18,7 @@ void AimBulletEnemy::Initialize(const Transform& transform, const Vector3& veloc
 	worldTransform_.scale_ = transform.scale;
 	
 	MoveSpeed_ = moveSpeed;
-	velocity_ = CreateVelocity(transform.translate);
+	velocity_ = velocity;
 
 	texindex_ = texture;
 	velocity_ = Multiply(MoveSpeed_, velocity_);
