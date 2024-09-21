@@ -182,77 +182,77 @@ position 1 13 0
 velocity 1.0 0.0 0.0
 speed 0.5
 type 3
-frame 100
+frame 130
 
 enemy a
 position -1 13 0
 velocity -1.0 0.0 0.0
 speed 0.5
 type 3
-frame 100
+frame 130
 
 enemy a
 position 4 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position 3 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position 2 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position 1 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position 0 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position -1 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position -2 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position -3 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 enemy a
 position -4 13 0
 velocity 0.0 -1 0.0
 speed 0.5
 type 0
-frame 10
+frame 20
 
 
 
@@ -336,141 +336,50 @@ length 500
 wave 16
 
 enemy a
-position 0 13 0
-velocity 0.0 -1.0 0.0
-speed 0.5
-type 7
-frame 10
-
-enemy a
-position 14 0 0
-velocity 0.0 -1.0 0.0
-speed 0.5
-type 6
-frame 220
+position 13 13 0
+velocity -0.8 -1.0 0.0
+speed 0.3
+type 2
+frame 60
 
 length 480
+
 /////////////////////////////////////////////
 wave 17
 
 enemy a
-position 0 13 0
-velocity 0.0 0.0 0.0
-speed 0.5
-type 7
-frame 30
+position 13 13 0
+velocity -0.8 -1.0 0.0
+speed 0.3
+type 2
+frame 60
 
 enemy a
-position 14 1 0
-velocity -1.0 0.0 0.0
-speed 0.5
-type 0
-frame 20
+position -13 13 0
+velocity 0.8 -1.0 0.0
+speed 0.3
+type 2
+frame 60
 
-enemy a
-position 14 2 0
-velocity -1.0 0.0 0.0
-speed 0.5
-type 0
-frame 30
-
-enemy a
-position 14 3 0
-velocity -1.0 0.0 0.0
-speed 0.5
-type 0
-frame 40
-
-enemy a
-position 14 4 0
-velocity -1.0 0.0 0.0
-speed 0.5
-type 0
-frame 50
-
-enemy a
-position -14 0 0
-velocity 0.0 0.0 0.0
-speed 0.5
-type 6
-frame  300
-
-length 410
+length 480
 
 //////////////////////////////////////////////
 
 wave 18
 
 enemy a
-position 0 13 0
-velocity 0.0 -1.0 0.0
-speed 0.5
-type 7
-frame 10
-
-enemy a
-position 0 13 0
-velocity 0.0 -1.0 0.0
-speed 0.5
-type 7
-frame 240
-
-enemy a
-position -13 13 0
-velocity 1.0 0.0 0.0
-speed 0.5
-type 3
+position 13 13 0
+velocity -0.8 -1.0 0.0
+speed 0.3
+type 2
 frame 60
 
-
 enemy a
 position 13 13 0
 velocity -1.0 0.0 0.0
 speed 0.5
 type 3
-frame 120
-
-enemy a
-position -13 13 0
-velocity 1.0 0.0 0.0
-speed 0.5
-type 3
-frame 180
-
-enemy a
-position 13 13 0
-velocity -1.0 0.0 0.0
-speed 0.5
-type 3
-frame 240
-
-
-length 440
-
-//////////////////////////////////////////////////
-
-wave 19
-
-enemy a
-position -14 13 0
-velocity 0.0 0.0 0.0
-speed 0.5
-type 6
-frame 10
-
-enemy a
-position 14 13 0
-velocity 0.0 0.0 0.0
-speed 0.5
-type 6
-frame 260
-
-enemy a
-position -14 13 0
-velocity 0.0 0.0 0.0
-speed 0.5
-type 6
-frame 510
+frame 40
 
 enemy a
 position -13 13 0
@@ -480,10 +389,44 @@ type 2
 frame 120
 
 enemy a
+position -13 13 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 3
+frame 100
+
+length 440
+
+//////////////////////////////////////////////////
+
+wave 19
+
+enemy a
 position 13 13 0
 velocity -0.8 -1.0 0.0
 speed 0.3
 type 2
-frame 280
+frame 60
 
-length 680
+enemy a
+position -13 13 0
+velocity 0.8 -1.0 0.0
+speed 0.3
+type 2
+frame 120
+
+enemy a
+position -13 13 0
+velocity 1.0 0.0 0.0
+speed 0.5
+type 3
+frame 30
+
+enemy a
+position 13 13 0
+velocity -1.0 0.0 0.0
+speed 0.5
+type 3
+frame 90
+
+length 480
