@@ -256,7 +256,7 @@ void WaveManager::Update() {
 			transform.rotate = { 0,0,0 };
 			transform.translate = enemy.translate;
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[EnemyPop], Audio::GetInstance()->SoundVolume[EnemyPop]);
-			Vector4 color = { 0.0f,1.0f,0.0f,1.0f };
+			Vector4 color = { 1.0f,0.0f,0.0f,1.0f };
 			gameScene_->particle_->AddParticle({ transform,random,color }, 10);
 			switch (enemy.type)
 			{

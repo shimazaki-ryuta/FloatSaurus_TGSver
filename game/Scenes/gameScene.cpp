@@ -22,7 +22,6 @@ GameScene::~GameScene()
 void GameScene::Initialize()
 {
 	
-
 	sceneNum = 1;
 	blueMoon_ = BlueMoon::GetInstance();
 
