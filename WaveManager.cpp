@@ -231,7 +231,7 @@ void WaveManager::Initialize() {
 	cortionPlane_.reset(new Plane);
 	cortionPlane_->Initialize();
 	cortionTextureHandle_ = Texturemanager::GetInstance()->Load("Resource/mark.png");
-	arrowTextureHandle_ = Texturemanager::GetInstance()->Load("Resource/yajirushi.png");
+	arrowTextureHandle_ = Texturemanager::GetInstance()->Load("Resource/preLine.png");
 	for (size_t index = 0; index < kCortionMax_; index++) {
 		worldTransformCortions_[index].Initialize();
 		worldTransformArrows_[index].Initialize();
@@ -244,8 +244,8 @@ void WaveManager::Update() {
 	cortion_.clear();
 	bool isPopWait = false;//出現待ちのエネミーがいるかどうか
 	for (EnemyData& enemy : waves_[size_t(waveNum_)].enemyDatas) {
-		if (currentFrame_ >= enemy.frame - cortionDrawFrame_ && currentFrame_ < enemy.frame && cortion_.size() < kCortionMax_ - 1) {
-			cortion_.push_back(enemy.translate);
+		if (currentFrame_ >= enemy.frame - cortionDrawFrame_ && currentFrame_ < enemy.frame + (enemy.type == 0 ? gameScene_->BulletStartCount : 0) && cortion_.size() < kCortionMax_ - 1) {
+			cortion_.push_back(enemy);
 		}
 		if (currentFrame_ == enemy.frame) {
 			//Enemyの生成処理	
@@ -418,8 +418,8 @@ void WaveManager::Update() {
 void WaveManager::TutorialUpdate() {
 	cortion_.clear();
 	for (EnemyData& enemy : tutorialWaves_[size_t(waveNum_)].enemyDatas) {
-		if (currentFrame_ >= enemy.frame - cortionDrawFrame_ && currentFrame_ < enemy.frame && cortion_.size() < kCortionMax_ - 1) {
-			cortion_.push_back(enemy.translate);
+		if (currentFrame_ >= enemy.frame - cortionDrawFrame_ && currentFrame_ < enemy.frame + (enemy.type == 0 ? gameScene_->BulletStartCount : 0) && cortion_.size() < kCortionMax_ - 1) {
+			cortion_.push_back(enemy);
 		}
 		if (currentFrame_ == enemy.frame) {
 			//Enemyの生成処理	
@@ -546,29 +546,35 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 	toCameraRotate.m[3][0] = 0;
 	toCameraRotate.m[3][1] = 0;
 	toCameraRotate.m[3][2] = 0;
-	for (Vector3& position : cortion_) {
+	for (EnemyData& data : cortion_) {
+		//一旦普通の敵だけ
+		if (data.type != 0) {
+			continue;
+		}
 		worldTransformCortions_[index].scale_ = { 3.0f,3.0f,1.0f };
-		worldTransformCortions_[index].translation_ = position;
-		if (std::abs(position.x) > 52.0f || (position.y > 52.0f || position.y < 0)) {
-			worldTransformCortions_[index].translation_.x = std::clamp(position.x, -52.0f, 52.0f);
-			worldTransformCortions_[index].translation_.y = std::clamp(position.y, 0.0f, 52.0f);
-			Matrix4x4 rotate = DirectionToDirection({ 1.0f,0,0.0f }, Normalise(position - worldTransformCortions_[index].translation_));
-			if (Normalise(position - worldTransformCortions_[index].translation_).x < 0 && Normalise(position - worldTransformCortions_[index].translation_).y == 0) {
+		worldTransformCortions_[index].translation_ = data.translate;
+		Matrix4x4 rotate = DirectionToDirection({1.0f,0.0f,0.0f}, data.velocity);
+			if (data.velocity.x <0) {
 				rotate = Multiply(rotate, MakeRotateXMatrix(3.141592f));
 			}
 			worldTransformArrows_[index].rotation_ = TransformNormal(worldTransformArrows_[index].rotation_, rotate);
-			worldTransformArrows_[index].scale_ = { 3.0f,3.0f,1.0f };
+			worldTransformArrows_[index].scale_ = { 50.0f,50.0f,1.0f };
 			worldTransformArrows_[index].translation_ = worldTransformCortions_[index].translation_;
+			worldTransformArrows_[index].translation_.x -= worldTransformArrows_[index].scale_.x * -0.5f * Normalise(data.velocity).x;
+			worldTransformArrows_[index].translation_.y -= worldTransformArrows_[index].scale_.y * -0.5f * Normalise(data.velocity).y;
 			worldTransformArrows_[index].translation_.z += 0.1f;
-			worldTransformArrows_[index].matWorld_ = Multiply(Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), MakeTranslateMatrix({ 2.0f,0.0f,0.0f })), rotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
+			worldTransformArrows_[index].matWorld_ =Multiply(Multiply(MakeScaleMatrix(worldTransformArrows_[index].scale_), rotate), MakeTranslateMatrix(worldTransformArrows_[index].translation_));
 			worldTransformArrows_[index].TransferMatrix();
 			//worldTransformArrows_[index].UpdateMatrix();
-			cortionPlane_->Draw(worldTransformArrows_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, arrowTextureHandle_);
-		}
-		worldTransformCortions_[index].translation_.z -= 1.0f;
-		worldTransformCortions_[index].matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), toCameraRotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
-		worldTransformCortions_[index].TransferMatrix();
-		cortionPlane_->Draw(worldTransformCortions_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, cortionTextureHandle_);
+			Vector4 color = {1.0f,0.0f,0.0f,1.0f};
+			if (currentFrame_ < data.frame) {
+				color = { 1.0f,0.5f,0.0f,1.0f };
+			}
+			cortionPlane_->Draw(worldTransformArrows_[index], viewProjection, color, arrowTextureHandle_);
+		//worldTransformCortions_[index].translation_.z -= 1.0f;
+		//worldTransformCortions_[index].matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), toCameraRotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
+		//worldTransformCortions_[index].TransferMatrix();
+		//cortionPlane_->Draw(worldTransformCortions_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, cortionTextureHandle_);
 		index++;
 	}
 	cortion_.clear();

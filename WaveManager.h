@@ -136,7 +136,7 @@ private:
 	static const size_t kCortionMax_ = 32;
 	std::array<WorldTransform, kCortionMax_> worldTransformCortions_;
 	std::array<WorldTransform, kCortionMax_> worldTransformArrows_;
-	std::list<Vector3> cortion_;
+	std::list<EnemyData> cortion_;
 	std::unique_ptr<Plane> cortionPlane_;
 	uint32_t cortionTextureHandle_;
 	uint32_t arrowTextureHandle_;
