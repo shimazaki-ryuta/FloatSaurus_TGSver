@@ -549,7 +549,15 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 	for (EnemyData& data : cortion_) {
 		//線出すのだけ
 		if (data.type == 0 || data.type == 2 || data.type == 3) {
-			if (!data.type == 0) {
+			if (data.type == 2) {
+				if (data.velocity.x >0) {
+					data.velocity = { 0.5f,-0.5f,0 };
+				}
+				else {
+					data.velocity = { -0.5f,-0.5f,0 };
+				}
+			}
+			else if (!data.type == 0) {
 				data.velocity = {0,-1.0f,0};
 			}
 			worldTransformCortions_[index].scale_ = { 3.0f,3.0f,1.0f };
