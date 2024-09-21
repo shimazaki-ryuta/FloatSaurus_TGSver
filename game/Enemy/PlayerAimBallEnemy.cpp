@@ -124,14 +124,23 @@ void PlayerAimBallEnemy::BehaviorAtackUpdate()
 
 void PlayerAimBallEnemy::BehaviorLeaveUpdate()
 {
-
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+	float t = float(countUp_) / float(kLeaveCount_);
+	float it = 1.0f - t;
+	worldTransform_.translation_.x =it* startPos_.x + t * target_.x;
+	worldTransform_.translation_.y = it * startPos_.y + t * target_.y;
+	t *= 2.0f;
+	t -= 1.0f;
+	t *= t;
+	t *= -1;
+	t += 1.0f;
+	float easedT = t == 1.0f ? 1.0f : 1.0f - std::powf(2.0f, -10.0f * t);
+	worldTransform_.translation_.z = easedT * 10.0f;
 	standBycount--;
 	worldTransform_.rotation_.z = standBycount / 5.0f;
-	if (worldTransform_.translation_.y >= 50.0f) {
+	if (countUp_ >= kLeaveCount_) {
 		behaviorRequest_ = Behavior::kstandBy;
 	}
-
+	countUp_++;
 }
 
 void PlayerAimBallEnemy::BehaviorStandbyInitialize()
@@ -152,6 +161,9 @@ void PlayerAimBallEnemy::BehaviorLeaveInitialize()
 	leaveSpeed = MoveSpeed_ * 2.0f / 3.0f;
 	velocity_ = Multiply(leaveSpeed, velocity_);
 	BehaviorChangeCount = 0;
+	target_ = target;
+	startPos_ = worldTransform_.translation_;
+	countUp_ = 0;
 }
 
 void PlayerAimBallEnemy::BehaviorAtackInitialize()

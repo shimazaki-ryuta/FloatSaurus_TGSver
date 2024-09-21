@@ -28,6 +28,12 @@ private:
 		int BehaviorChangeCount;
 		int count;
 
+		//プレイヤー座標
+		Vector3 target_;
+		Vector3 startPos_;
+		size_t countUp_=0;
+		static const size_t kLeaveCount_ = 180;//上に戻るまでの時間
+
 	std::optional<Behavior> behaviorRequest_;
 	Behavior behavior_ = Behavior::kstandBy;
 	void BehaviorStandbyUpdate();
