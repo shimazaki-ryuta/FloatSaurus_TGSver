@@ -547,14 +547,12 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 	toCameraRotate.m[3][1] = 0;
 	toCameraRotate.m[3][2] = 0;
 	for (EnemyData& data : cortion_) {
-		//一旦普通の敵だけ
-		if (data.type != 0) {
-			continue;
-		}
-		worldTransformCortions_[index].scale_ = { 3.0f,3.0f,1.0f };
-		worldTransformCortions_[index].translation_ = data.translate;
-		Matrix4x4 rotate = DirectionToDirection({1.0f,0.0f,0.0f}, data.velocity);
-			if (data.velocity.x <0) {
+		//線出すのだけ
+		if (data.type == 0 || data.type == 2 || data.type == 3) {
+			worldTransformCortions_[index].scale_ = { 3.0f,3.0f,1.0f };
+			worldTransformCortions_[index].translation_ = data.translate;
+			Matrix4x4 rotate = DirectionToDirection({ 1.0f,0.0f,0.0f }, data.velocity);
+			if (data.velocity.x < 0) {
 				rotate = Multiply(rotate, MakeRotateXMatrix(3.141592f));
 			}
 			worldTransformArrows_[index].rotation_ = TransformNormal(worldTransformArrows_[index].rotation_, rotate);
@@ -563,18 +561,38 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 			worldTransformArrows_[index].translation_.x -= worldTransformArrows_[index].scale_.x * -0.5f * Normalise(data.velocity).x;
 			worldTransformArrows_[index].translation_.y -= worldTransformArrows_[index].scale_.y * -0.5f * Normalise(data.velocity).y;
 			worldTransformArrows_[index].translation_.z += 0.1f;
-			worldTransformArrows_[index].matWorld_ =Multiply(Multiply(MakeScaleMatrix(worldTransformArrows_[index].scale_), rotate), MakeTranslateMatrix(worldTransformArrows_[index].translation_));
+			worldTransformArrows_[index].matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformArrows_[index].scale_), rotate), MakeTranslateMatrix(worldTransformArrows_[index].translation_));
 			worldTransformArrows_[index].TransferMatrix();
-			//worldTransformArrows_[index].UpdateMatrix();
-			Vector4 color = {1.0f,0.0f,0.0f,1.0f};
-			if (currentFrame_ < data.frame) {
-				color = { 1.0f,0.5f,0.0f,1.0f };
+			cortionPlane_->Draw(worldTransformArrows_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, arrowTextureHandle_);
+		}
+		else {
+			//これまでの処理
+			worldTransformCortions_[index].scale_ = { 3.0f,3.0f,1.0f };
+			worldTransformCortions_[index].translation_ = data.translate;
+			if (std::abs(data.translate.x) > 52.0f || (data.translate.y > 52.0f || data.translate.y < 0)) {
+				worldTransformCortions_[index].translation_.x = std::clamp(data.translate.x, -52.0f, 52.0f);
+				worldTransformCortions_[index].translation_.y = std::clamp(data.translate.y, 0.0f, 52.0f);
+				Matrix4x4 rotate = DirectionToDirection({ 1.0f,0,0.0f }, Normalise(data.translate - worldTransformCortions_[index].translation_));
+				if (Normalise(data.translate - worldTransformCortions_[index].translation_).x < 0 && Normalise(data.translate - worldTransformCortions_[index].translation_).y == 0) {
+					rotate = Multiply(rotate, MakeRotateXMatrix(3.141592f));
+				}
+				worldTransformArrows_[index].rotation_ = TransformNormal(worldTransformArrows_[index].rotation_, rotate);
+				worldTransformArrows_[index].scale_ = { 3.0f,3.0f,1.0f };
+				worldTransformArrows_[index].translation_ = worldTransformCortions_[index].translation_;
+				worldTransformArrows_[index].translation_.z += 0.1f;
+				worldTransformArrows_[index].matWorld_ = Multiply(Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), MakeTranslateMatrix({ 2.0f,0.0f,0.0f })), rotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
+				worldTransformArrows_[index].TransferMatrix();
+				//worldTransformArrows_[index].UpdateMatrix();
+				cortionPlane_->Draw(worldTransformArrows_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, arrowTextureHandle_);
 			}
-			cortionPlane_->Draw(worldTransformArrows_[index], viewProjection, color, arrowTextureHandle_);
-		//worldTransformCortions_[index].translation_.z -= 1.0f;
-		//worldTransformCortions_[index].matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), toCameraRotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
-		//worldTransformCortions_[index].TransferMatrix();
-		//cortionPlane_->Draw(worldTransformCortions_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, cortionTextureHandle_);
+			worldTransformCortions_[index].translation_.z -= 1.0f;
+			worldTransformCortions_[index].matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformCortions_[index].scale_), toCameraRotate), MakeTranslateMatrix(worldTransformCortions_[index].translation_));
+			worldTransformCortions_[index].TransferMatrix();
+			cortionPlane_->Draw(worldTransformCortions_[index], viewProjection, { 1.0f,1.0f,1.0f,1.0f }, cortionTextureHandle_);
+
+		}
+		
+
 		index++;
 	}
 	cortion_.clear();
