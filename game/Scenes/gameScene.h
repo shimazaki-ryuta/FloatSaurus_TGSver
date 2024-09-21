@@ -81,7 +81,6 @@ private:
 	XINPUT_STATE preJoyState_;
 	
 	std::unique_ptr<Player> player_;
-	//std::list<Enemy*> enemys_;
 	std::list <IEnemy*>enemys_;
 	float EnemymoveSpeed_;
 	Vector3 enemyVelocity_;

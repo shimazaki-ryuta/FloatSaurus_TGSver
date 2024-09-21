@@ -33,6 +33,7 @@ void GameScene::Initialize()
 	enemyTex_ = textureManager_->Load("resource/black.png");
 	viewProjection_.Initialize();
 
+#pragma region
 	GlovalVariables* globalVariables = GlovalVariables::GetInstance();
 	const char* groupName = "GameSetting";
 	globalVariables->CreateGroup(groupName);
@@ -52,7 +53,7 @@ void GameScene::Initialize()
 	globalVariables->AddItem(groupName2, "linePosition", linePosition_);
 	globalVariables->AddItem(groupName2, "startScale", lineScale_);
 	globalVariables->AddItem(groupName2, "startPosition", linePosition_);
-
+	//音楽のボリューム
 	const char* groupNameSound = "SoundVolume";
 	globalVariables->CreateGroup(groupNameSound);
 	globalVariables->AddItem(groupNameSound, "IngameBGM", Audio::GetInstance()->SoundVolume[inGameBGM]);
@@ -67,7 +68,7 @@ void GameScene::Initialize()
 	globalVariables->AddItem(groupNameSound, "ClearBGM", Audio::GetInstance()->SoundVolume[Clear]);
 	globalVariables->AddItem(groupNameSound, "EnemyPopBGM", Audio::GetInstance()->SoundVolume[EnemyPop]);
 	globalVariables->AddItem(groupNameSound, "plusWaveBGM", Audio::GetInstance()->SoundVolume[PlusWave]);
-	
+#pragma endregion ゲームの設定項目	
 	
 	MapManager::GetInstance()->Initialize();
 	//MapManager::GetInstance()->MapRead();
@@ -88,7 +89,6 @@ void GameScene::Initialize()
 	enemyVelocity_ = { -1.0f,0.0f,0.0f };
 	type = kBullet;
 	enemyTransform = { {3.0f,3.0f,3.0f},{1.0f,1.0f,1.0f},{10.0f,10.0f,0.0f} };
-	//EnemySpawn(player_->GetWorldTransform(),type);
 	enemyPop_ = false;
 	for (IEnemy* enemy : enemys_ ) {
 		delete enemy;
@@ -225,13 +225,14 @@ void GameScene::Update()
 	
 
 	ApplyGlobalVariables();
-	//preJoyState_ = joyState_;
-	//Input::GetInstance()->GetJoystickState(0, joyState_);
 	GameController::GetInstance()->Update();
 	
 
 	ImGui::Begin("wave");
-	ImGui::DragInt("wave", &waveNum_,1,0,30);
+	ImGui::DragInt("wave", &waveNum_,1,0,24);
+	if (ImGui::Button("Stert")) {
+		WaveManager::GetInstance()->SetWave(waveNum_);
+	}
 	ImGui::End();
 
 	ImGui::Begin("testcamera");
@@ -473,13 +474,6 @@ void GameScene::InGame() {
 		}
 		return false;
 		});
-
-	/*std::vector<MapManager::Map>& mapObjects = MapManager::GetInstance()->GetMapObject();
-	for (MapManager::Map & object : mapObjects) {
-		if (IsCollision(player_->GetOBB(), object.obb)) {
-			player_->OnCollision(object.obb);
-		}
-	}*/
 	
 	MapManager::GetInstance()->Update();
 	for (IEnemy* enemy : enemys_) {
@@ -522,6 +516,11 @@ void GameScene::InGame() {
  				bullet->isCollision();
 			}
 			if (IsCollision(bullet->GetOBB(), player_->GetOBB())) {
+			#ifdef _DEBUG
+				if (player_->GetColliderFlag() == false) {
+					return;
+				}
+			#endif
 				Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[Death], Audio::GetInstance()->SoundVolume[Death]);
 
 				ReStart();
@@ -540,9 +539,11 @@ void GameScene::InGame() {
 			player_->OnCollisionWall(object->obb);
 		}
 	}
+
+
+	//敵とオブジェクトの当たり判定
 	for (IEnemy* enemy : enemys_) {
-		
-		
+		//地面と当たった時
 		for (std::shared_ptr<MapManager::Map> object : floors) {
 			if (IsCollision(enemy->GetOBB(), object->obb) && !enemy->GetIsHit()) {
 
@@ -576,7 +577,7 @@ void GameScene::InGame() {
 				}
 			}
 		}
-		
+		//反射タイプの敵なら
 		if (enemy->GetType() == kReflect) {
 			for (std::shared_ptr<MapManager::Map> object : walls) {
 				if (IsCollision(enemy->GetOBB(), object->obb)) {
@@ -586,7 +587,13 @@ void GameScene::InGame() {
 				}
 			}
 		}
+		//プレイヤーと当たっていたら
 		if (IsCollision(enemy->GetOBB(), player_->GetOBB())) {
+			#ifdef _DEBUG
+			if (player_->GetColliderFlag() == false) {
+				return;
+			}
+			#endif
 			//Initialize();
 			ReStart();
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[Death], Audio::GetInstance()->SoundVolume[Death]);
@@ -623,7 +630,6 @@ void GameScene::InGame() {
 	for (std::list<ParticleData>::iterator particleIterator = particleData->begin(); particleIterator != particleData->end(); particleIterator++) {
 		if ((*particleIterator).attribute == ABSORPTION) {
 			(*particleIterator).velocity = 10.0f*Normalise(Lerp(0.2f, Normalise((*particleIterator).velocity), Normalise(player_->GetWorldTransformBack().GetWorldPos() - (Multiply((*particleIterator).emitter.transform.scale.x,(*particleIterator).transform.translate) + (*particleIterator).emitter.transform.translate))));
-			//(particleIterator)->velocity =player_->GetWorldTransform().GetWorldPos() - ((*particleIterator).transform.translate + (*particleIterator).emitter.transform.translate);
 		}
 	}
 	particle_->Update();
@@ -672,13 +678,6 @@ void GameScene::Tutorial() {
 		return false;
 		});
 
-	/*std::vector<MapManager::Map>& mapObjects = MapManager::GetInstance()->GetMapObject();
-	for (MapManager::Map & object : mapObjects) {
-		if (IsCollision(player_->GetOBB(), object.obb)) {
-			player_->OnCollision(object.obb);
-		}
-	}*/
-
 	MapManager::GetInstance()->Update();
 	for (IEnemy* enemy : enemys_) {
 		enemy->Update();
@@ -716,6 +715,11 @@ void GameScene::Tutorial() {
 				bullet->isCollision();
 			}
 			if (IsCollision(bullet->GetOBB(), player_->GetOBB())) {
+				#ifdef _DEBUG
+				if (player_->GetColliderFlag() == false) {
+					return;
+				}
+				#endif
 				Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[Death], Audio::GetInstance()->SoundVolume[Death]);
 
 				ReStart();
@@ -785,7 +789,11 @@ void GameScene::Tutorial() {
 			}
 		}
 		if (IsCollision(enemy->GetOBB(), player_->GetOBB())) {
-			//Initialize();
+			#ifdef _DEBUG
+			if (player_->GetColliderFlag() == false) {
+				return;
+			}
+			#endif
 			ReStart();
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[Death], Audio::GetInstance()->SoundVolume[Death]);
 
@@ -797,8 +805,6 @@ void GameScene::Tutorial() {
 	if (!isRunAnimation_) {
 		if (WaveManager::GetInstance()->GetWave() + 1 >= WaveManager::GetInstance()->GetMaxWave() &&
 			WaveManager::GetInstance()->IsEnd()) {
-			//sceneNum = 2;
-			//isRunAnimation_;
 			isInGame_ = false;
 			isTitle_ = false;
 			frameCount_ = 0;
@@ -821,7 +827,6 @@ void GameScene::Tutorial() {
 	for (std::list<ParticleData>::iterator particleIterator = particleData->begin(); particleIterator != particleData->end(); particleIterator++) {
 		if ((*particleIterator).attribute == ABSORPTION) {
 			(*particleIterator).velocity = 1.0f * (Lerp(0.2f, ((*particleIterator).velocity), (player_->GetWorldTransformBack().GetWorldPos() - (Multiply((*particleIterator).emitter.transform.scale.x, (*particleIterator).transform.translate) + (*particleIterator).emitter.transform.translate))));
-			//(particleIterator)->velocity =player_->GetWorldTransform().GetWorldPos() - ((*particleIterator).transform.translate + (*particleIterator).emitter.transform.translate);
 		}
 	}
 	particle_->Update();
@@ -930,13 +935,7 @@ void GameScene::ApplyGlobalVariables()
 	reverse_.translate = globalVariables->GetVector3Value(groupName3, "reversePosition");
 
 	lifeScale_ = globalVariables->GetVector3Value(groupName3, "lifeScale");
-	/*//lifeTranslates_[0] = globalVariables->GetVector3Value(groupName3, "lifePosition0");
-	//lifeTranslates_[1] = globalVariables->GetVector3Value(groupName3, "lifePosition1");
-	//lifeTranslates_[2] = globalVariables->GetVector3Value(groupName3, "lifePosition2");
-	lifeTranslates_[0] = lifeTranslates_[1];
-	lifeTranslates_[0].x -= 100.0f;
-	lifeTranslates_[2] = lifeTranslates_[1];
-	lifeTranslates_[2].x += 100.0f;*/
+
 	lifeLeftTopPosition_ = globalVariables->GetVector3Value(groupName3, "lifePosition1");
 
 
@@ -962,100 +961,7 @@ void GameScene::ApplyGlobalVariables()
 	Audio::GetInstance()->SoundVolume[EnemyPop] = globalVariables->GetFloatValue(groupNameSound, "EnemyPopBGM");
 	Audio::GetInstance()->SoundVolume[PlusWave] = globalVariables->GetFloatValue(groupNameSound, "plusWaveBGM");
 	
-	worldTransformDropArie_.scale_ = dropAreaScale_;
-	worldTransformDropArie_.translation_.y = fallingBorder_ - worldTransformDropArie_.scale_.y*0.5f;
-	worldTransformDropArie_.UpdateMatrix();
-}
-
-void GameScene::EnemySpawn(const WorldTransform& worldTransform, EnemyType type)
-{
-	IEnemy* enemy;
-
-	switch (type)
-	{
-	case kBullet:
-		enemy = new BulletEnemy();
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,bulletEnemyModel_.get());
-		enemy->SetStartCount(BulletStartCount);
-		enemys_.push_back(enemy);
-		break;
-	case kReflect:
-		enemy = new ReflectEnemy();
-		enemy->SetPlayer(player_.get());
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_, reverceEnemyModel_.get());
-		
-		enemys_.push_back(enemy);
-		break;
-	case kBound:
-		enemy = new BoundEnemy();
-		//{ 0.3f, -1.0f, 0.0f }
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_, ballEnemyModel_.get());
-
-		enemys_.push_back(enemy);
-		break;
-	case kTire:
-		enemy = new TireEnemy();
-		//{ 0.3f, -1.0f, 0.0f }
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, 3,wheelEnemyModel_.get());
 	
-		enemys_.push_back(enemy);
-		break;
-	case kSpear:
-		break;
-	case kRaser:
-		enemy = new BeamEnemy();
-		//{ 0.3f, -1.0f, 0.0f }
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,beamEnemyModel_.get());
-	    enemy->SetStartCount(BulletStartCount);
-		enemys_.push_back(enemy);
-		break;
-	case kAimBulletWidth:
-		enemy = new AImBulletWidthEnemy();
-		//{ 0.3f, -1.0f, 0.0f }
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,bulletEnemyModel_.get());
-		enemy->SetPlayer(player_.get());
-		enemy->SetGameScene(this);
-		enemys_.push_back(enemy);
-		break;
-	case kAimBulletHeight:
-		enemy = new AimBulletEnemy();
-		//{ 0.3f, -1.0f, 0.0f }
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,bulletEnemyModel_.get());
-		enemy->SetPlayer(player_.get());
-		enemy->SetGameScene(this);
-		enemys_.push_back(enemy);
-		break;
-	case kAimBound:
-		enemy = new PlayerAimBallEnemy();
-		//{ 0.3f, -1.0f, 0.0f }
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,targetballEnemyModel_.get());
-		enemy->SetPlayer(player_.get());
-		enemy->SetGameScene(this);
-		enemys_.push_back(enemy);
-		break;
-	case kStageUp:
-		enemy = new StageChangeEnemy();
-		//{ 0.3f, -1.0f, 0.0f }
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,reverceEnemyModel_.get());
-		enemy->SetType(kStageUp);
-		enemys_.push_back(enemy);
-		break;
-	case kStageDown:
-		enemy = new StageChangeEnemy();
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,reverceEnemyModel_.get());
-		enemy->SetType(kStageDown);
-		enemys_.push_back(enemy);
-		break;
-	case kHoming:
-		break;
-	default:
-		enemy = new ReflectEnemy();
-		enemy->Initialize(enemyTransform, enemyVelocity_, EnemymoveSpeed_, enemyTex_,ballEnemyModel_.get());
-
-		enemys_.push_back(enemy);
-		break;
-	}
-
 }
 
 void GameScene::Draw2D() {

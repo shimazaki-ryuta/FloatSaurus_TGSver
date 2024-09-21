@@ -156,7 +156,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="game\Enemy\BeamEnemy.cpp" />
     <ClCompile Include="game\Enemy\BoundEnemy.cpp" />
     <ClCompile Include="game\Enemy\BulletEnemy.cpp" />
-    <ClCompile Include="game\Enemy\IENEMY.CPP" />
+    <ClCompile Include="game\Enemy\IEnemy.cpp" />
     <ClCompile Include="game\Enemy\PlayerAimBallEnemy.cpp" />
     <ClCompile Include="game\Enemy\PlayerAimBullet.cpp" />
     <ClCompile Include="game\Enemy\ReflectEnemy.cpp" />
