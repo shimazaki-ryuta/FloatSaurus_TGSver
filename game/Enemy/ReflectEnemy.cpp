@@ -8,12 +8,9 @@ ReflectEnemy::~ReflectEnemy()
 {
 }
 
-void ReflectEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
+void ReflectEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player)
 {
-	texManager_ = Texturemanager::GetInstance();
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
-
+	player_ = player;
 	
 	worldTransform_.translation_ = transform.translate;
 	worldTransform_.scale_ = transform.scale;
@@ -38,7 +35,9 @@ void ReflectEnemy::Initialize(const Transform& transform, const Vector3& velocit
 	velocity_ = Normalise(velocity_);
 	velocity_ = Multiply(MoveSpeed_, velocity_);
 	//worldTransform_.UpdateMatrix();
-	currentTime_=0;
+	currentTime_ = 0;
+
+	setReticle(worldTransform_.translation_);
 }
 
 void ReflectEnemy::Update()

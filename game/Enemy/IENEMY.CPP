@@ -1,10 +1,54 @@
 #include"IEnemy.h"
 
 IEnemy::IEnemy() {
+    texManager_ = Texturemanager::GetInstance();
+
+    reticleTextureHandle_ = texManager_->Load("resource/white.png");
+
+    reticleWorld_.Initialize();
+
+    reticleWorld_.scale_.x = 2.0f;
+    reticleWorld_.scale_.y = 2.0f;
+    reticleWorld_.translation_ = { 0.0f,0.0f,-1.0f };
+
+    reticleWorld_.UpdateMatrix();
+
+    reticleModel_.reset(new Plane);
+    reticleModel_->Initialize();
 
 }
+
 IEnemy::~IEnemy() {
 
+}
+void IEnemy::CommonUpdate()
+{
+    if (isReticleUse) {
+
+        reticleWorld_.UpdateMatrix();
+    }
+
+}
+
+void IEnemy::CommonDraw(const ViewProjection& viewProjection)
+{
+    if (isReticleUse) {
+    reticleModel_->Draw(reticleWorld_, viewProjection, {0.0f,1.0f,0.25f,0.4f}, reticleTextureHandle_);
+    }
+}
+
+void IEnemy::setReticle(Vector3 transform)
+{
+    reticleWorld_.translation_ = transform;
+    reticleWorld_.translation_.z = 1.0f;
+
+    if (velocity_.x != 0.0f) {
+        reticleWorld_.scale_.x = 500.0f;
+    }
+    if (velocity_.y != 0.0f) {
+        reticleWorld_.scale_.y = 500.0f;
+    }
+    reticleWorld_.UpdateMatrix();
 }
 
 Vector3 IEnemy::CreateVelocity(Vector3 translate){

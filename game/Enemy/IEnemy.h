@@ -5,6 +5,8 @@
 #include <memory>
 #include "textureManager.h"
 #include "model.h"
+#include "Plane.h"
+
 enum ReflectionCount {
 	ReflectInfinit,
 	reflect4,
@@ -34,12 +36,15 @@ class IEnemy
 public:
 	IEnemy();
 	~IEnemy();
-	virtual void Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model) = 0;
+	virtual void Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player) = 0;
 	//入力した位置からvelocityを作成
 	Vector3 CreateVelocity(Vector3 transform);
-
+	void CommonUpdate();
 	virtual void Update() = 0;
+	void CommonDraw(const ViewProjection& viewProjection);
 	virtual void Draw(const ViewProjection& viewProjection) = 0;
+	void setReticle(Vector3 transform);
+
 	virtual void isCollision(OBB pertner) = 0;
 	virtual bool GetIsAlive() { return isAlive_; }
 	//当たり判定の取得
@@ -51,7 +56,6 @@ public:
 	virtual void SetPartener(collisionPartner partner) { collisionpartner_ = partner; }
 	virtual EnemyType GetType() { return type_; }
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
-	void SetPlayer(Player* player) { player_ = player; }
 	WorldTransform& GetWorldTransform() { return worldTransform_; };
 	void Deth() { isAlive_ = false; };
 
@@ -77,5 +81,10 @@ protected:
 	Player* player_;
 	int startCount_;
 	Model* model_;
+
+	std::unique_ptr<Plane> reticleModel_;
+	int reticleTextureHandle_;
+	WorldTransform reticleWorld_;
+	bool isReticleUse = true;
 };
 

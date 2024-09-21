@@ -9,10 +9,9 @@ AImBulletWidthEnemy::~AImBulletWidthEnemy()
 {
 }
 
-void AImBulletWidthEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
+void AImBulletWidthEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player)
 {
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
+
 	mainmodel.reset(Model::CreateModelFromObj("Resource/Enemy", "bulletMother.obj"));
 
 	worldTransform_.Initialize();
@@ -30,6 +29,8 @@ void AImBulletWidthEnemy::Initialize(const Transform& transform, const Vector3& 
 	coolTime_ = 50;
 	model_ = model;
 	model_->setIsLighting(false);
+
+	setReticle(worldTransform_.translation_);
 }
 
 void AImBulletWidthEnemy::Update()

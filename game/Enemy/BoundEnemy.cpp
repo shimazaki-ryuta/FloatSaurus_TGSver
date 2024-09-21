@@ -1,4 +1,5 @@
 #include "BoundEnemy.h"
+#include "game/Player.h"
 
 BoundEnemy::BoundEnemy()
 {
@@ -8,11 +9,9 @@ BoundEnemy::~BoundEnemy()
 {
 }
 
-void BoundEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
+void BoundEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player)
 {
-	texManager_ = Texturemanager::GetInstance();
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
+	player_ = player;
 
 	worldTransform_.translation_ = transform.translate;
 	worldTransform_.scale_ = transform.scale;
@@ -24,7 +23,6 @@ void BoundEnemy::Initialize(const Transform& transform, const Vector3& velocity,
 	velocity_.z = std::clamp(velocity_.z, -1.0f, 1.0f);
 	texindex_ = texture;
 	velocity_ = Multiply(MoveSpeed_, velocity_);
-	//velocity_.y = -MoveSpeed_;
 	
 	isAlive_ = true;
 	ishit_ = false;
@@ -35,6 +33,8 @@ void BoundEnemy::Initialize(const Transform& transform, const Vector3& velocity,
 	type_ = kBound;
 	model_ = model;
 	model_->setIsLighting(false);
+
+	//setReticle(worldTransform_.translation_);
 }
 
 void BoundEnemy::Update()
@@ -80,12 +80,15 @@ void BoundEnemy::Update()
 	}if (std::abs(worldTransform_.translation_.x) > 150.0f) {
 		isAlive_ = false;
 	}
+
+	//CommonUpdate();
 }
 
 void BoundEnemy::Draw(const ViewProjection& viewProjection)
 {
-	//sphere_->Draw({ 1.0f,1.0f,1.0f,1.0f }, worldTransform_, texindex_, viewProjection);
 	model_->Draw(worldTransform_, viewProjection);
+
+	//CommonDraw(viewProjection);
 }
 
 void BoundEnemy::isCollision(OBB pertner)

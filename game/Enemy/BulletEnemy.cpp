@@ -1,5 +1,5 @@
 #include "BulletEnemy.h"
-
+#include "game/Player.h"
 BulletEnemy::BulletEnemy()
 {
 }
@@ -8,8 +8,9 @@ BulletEnemy::~BulletEnemy()
 {
 }
 
-void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
+void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player)
 {
+	player_ = player;
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = transform.translate;
@@ -48,16 +49,17 @@ void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity
 		worldTransform_.rotation_.y = -4.75f;
 	}
 	worldTransform_.UpdateMatrix();
+
+	setReticle(worldTransform_.translation_);
 }
 
 
 void BulletEnemy::Update()
 {
 	currentCount++;
-	
-	
-		worldTransform_.rotation_.x += 0.2f;
-	
+
+
+	worldTransform_.rotation_.x += 0.2f;
 	
 	if (currentCount >= startCount_) {
 		worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_ * 1.2f);
@@ -68,13 +70,17 @@ void BulletEnemy::Update()
 		GetOrientations(rotateMatrix, obb_.orientation);
 	}
 	
-		worldTransform_.UpdateMatrix();
+	worldTransform_.UpdateMatrix();
+
+	CommonUpdate();
 }
 
 void BulletEnemy::Draw(const ViewProjection& viewProjection)
 {
-	//sphere_->Draw({ 1.0f,1.0f,1.0f,1.0f }, worldTransform_, texindex_, viewProjection);
 	model_->Draw(worldTransform_, viewProjection);
+
+	CommonDraw(viewProjection);
+
 }
 
 void BulletEnemy::isCollision(OBB pertner)

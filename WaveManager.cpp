@@ -264,7 +264,7 @@ void WaveManager::Update() {
 				newEnemy = new BulletEnemy();
 				newEnemy->SetStartCount(gameScene_->BulletStartCount);
 				transform.scale = { 1.5, 2, 2 };
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get());
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get(),player_);
 
 				enemyList_->push_back(newEnemy);
 				break;
@@ -281,13 +281,13 @@ void WaveManager::Update() {
 				//バウンド敵
 				newEnemy = new BoundEnemy();
 				transform.scale = { 3.0f,3.0f,3.0f };
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->ballEnemyModel_.get());
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->ballEnemyModel_.get(), player_);
 				enemyList_->push_back(newEnemy); break;
 			case kTire://3
 				//タイヤ
 				newEnemy = new TireEnemy();
 				transform.scale = { 3.0f,3.0f,3.0f };
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->wheelEnemyModel_.get());
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->wheelEnemyModel_.get(), player_);
 				enemyList_->push_back(newEnemy);
 				break;
 			case kSpear://4
@@ -303,8 +303,7 @@ void WaveManager::Update() {
 				//自分を狙う敵(縦移動)
 				newEnemy = new AImBulletWidthEnemy();
 				transform.scale = { 3.0f,3.0f,3.0f };
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get());
-				newEnemy->SetPlayer(player_);
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get(), player_);
 				newEnemy->SetGameScene(gameScene_);
 				enemyList_->push_back(newEnemy);
 				break;
@@ -312,17 +311,15 @@ void WaveManager::Update() {
 				//自分を狙う敵(横移動)
 				newEnemy = new AimBulletEnemy();
 				transform.scale = { 3.0f,3.0f,3.0f };
-				newEnemy->SetPlayer(player_);
 				newEnemy->SetGameScene(gameScene_);
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get());
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get(), player_);
 				enemyList_->push_back(newEnemy);
 				break;
 			case kAimBound://8
 				//プレイヤーを追いかけて突進する敵
 				newEnemy = new PlayerAimBallEnemy();
 				transform.scale = { 3.0f,3.0f,3.0f };
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->targetballEnemyModel_.get());
-				newEnemy->SetPlayer(player_);
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->targetballEnemyModel_.get(), player_);
 				newEnemy->SetGameScene(gameScene_);
 				enemyList_->push_back(newEnemy);
 				break;
@@ -438,14 +435,14 @@ void WaveManager::TutorialUpdate() {
 				newEnemy = new BulletEnemy();
 				newEnemy->SetStartCount(gameScene_->BulletStartCount);
 				transform.scale = { 1.5, 2, 2 };
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get());
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->bulletEnemyModel_.get(), player_);
 
 				enemyList_->push_back(newEnemy);
 				break;
 			default://else
 				newEnemy = new ReflectEnemy();
 
-				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->ballEnemyModel_.get());
+				newEnemy->Initialize(transform, enemy.velocity, enemy.speed, 2, gameScene_->ballEnemyModel_.get(), player_);
 				enemyList_->push_back(newEnemy);
 				break;
 			}

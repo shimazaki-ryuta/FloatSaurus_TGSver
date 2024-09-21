@@ -21,7 +21,6 @@ GameScene::~GameScene()
 
 void GameScene::Initialize()
 {
-	
 
 	sceneNum = 1;
 	blueMoon_ = BlueMoon::GetInstance();
@@ -158,7 +157,7 @@ void GameScene::Initialize()
 	reverceEnemyModel_.reset(Model::CreateModelFromObj("Resource/Enemy", "revese.obj"));
 	wheelEnemyModel_.reset(Model::CreateModelFromObj("Resource/Enemy", "wheel.obj"));
 
-
+#pragma region 
 	const char* groupName3 = "UI";
 	globalVariables->AddItem(groupName3, "moveScale", move_.scale);
 	globalVariables->AddItem(groupName3, "movePosition", move_.translate);
@@ -191,6 +190,7 @@ void GameScene::Initialize()
 	Transform t = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
 
 	worldTransformDropArie_.Initialize();
+#pragma endregion UI
 
 	ApplyGlobalVariables();
 	//particle_->AddParticle({ t }, 10);
@@ -222,11 +222,8 @@ void GameScene::Initialize()
 
 void GameScene::Update()
 {
-	
-
 	ApplyGlobalVariables();
 	GameController::GetInstance()->Update();
-	
 
 	ImGui::Begin("wave");
 	ImGui::DragInt("wave", &waveNum_,1,0,24);
@@ -282,8 +279,6 @@ void GameScene::Update()
 	ImGui::DragInt("timeCount", &BulletStartCount);
 	ImGui::Checkbox("POP", &enemyPop_);
 	ImGui::End();
-	
-	
 	
 	if (isTitle_) {
 		Title();
@@ -345,7 +340,6 @@ void GameScene::Update()
 		isEnd_ = true;
 	}
 }
-
 
 void GameScene::Title() {
 	
@@ -877,6 +871,7 @@ void GameScene::Draw3D()
 	if (!isStartGame_ && !isEndGame_ && !isStartTutorial_) {
 		titleLine_->Draw(worldTransformLine_, viewProjection_, { 1.0f,1.0f ,1.0f ,1.0f }, blackTextureHandle_);
 		titleChar_->Draw(worldTransformStart_, viewProjection_,{1.0f,1.0f,1.0f,1.0f},startTextureHandle_);
+
 
 		tutorialArea_->Draw(worldTransformInnerTutorialArie_, viewProjection_, tutorialColor_, fadeTextureHandle_);
 		titleChar_->Draw(worldTransformTutorial_, viewProjection_, { 1.0f,1.0f,1.0f,1.0f }, tutorialTextureHandle_);

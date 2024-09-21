@@ -1,5 +1,5 @@
 #include "StageChangeEnemy.h"
-
+#include "game/Player.h"
 StageChangeEnemy::StageChangeEnemy()
 {
 }
@@ -8,10 +8,8 @@ StageChangeEnemy::~StageChangeEnemy()
 {
 }
 
-void StageChangeEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
+void StageChangeEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player)
 {
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = transform.translate;
@@ -26,6 +24,8 @@ void StageChangeEnemy::Initialize(const Transform& transform, const Vector3& vel
 	count = 0;
 	model_ = model;
 	model_->setIsLighting(false);
+
+	setReticle(worldTransform_.translation_);
 }
 
 void StageChangeEnemy::Update()

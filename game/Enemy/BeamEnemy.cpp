@@ -8,13 +8,12 @@ BeamEnemy::~BeamEnemy()
 {
 }
 
-void BeamEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
+void BeamEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player)
 {
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
+	player_ = player;
 
 	worldTransform_.Initialize();
-	worldTransform_.translation_.x =(int) transform.translate.x*4.0f;
+	worldTransform_.translation_.x = (int)transform.translate.x * 4.0f;
 	worldTransform_.translation_.y = (int)transform.translate.y * 4.0f;
 	worldTransform_.translation_.z = (int)transform.translate.z * 4.0f;
 	worldTransform_.scale_ = transform.scale;
@@ -31,6 +30,8 @@ void BeamEnemy::Initialize(const Transform& transform, const Vector3& velocity, 
 	currentCount = 0;
 	model_ = model;
 	model_->setIsLighting(false);
+
+	setReticle(worldTransform_.translation_);
 }
 
 void BeamEnemy::Update()

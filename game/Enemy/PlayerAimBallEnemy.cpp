@@ -9,10 +9,9 @@ PlayerAimBallEnemy::~PlayerAimBallEnemy()
 {
 }
 
-void PlayerAimBallEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model)
+void PlayerAimBallEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture, Model* model, Player* player)
 {
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
+	player_ = player;
 
 	worldTransform_.translation_ = transform.translate;
 	worldTransform_.scale_ = transform.scale;
@@ -30,6 +29,8 @@ void PlayerAimBallEnemy::Initialize(const Transform& transform, const Vector3& v
 	SetType(kAimBound);
 	model_->setIsLighting(false);
 	count = 0;
+
+	setReticle(worldTransform_.translation_);
 }
 
 void PlayerAimBallEnemy::Update()

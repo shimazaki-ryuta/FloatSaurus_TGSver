@@ -25,6 +25,7 @@ void PlayerAimBullet::Initialize(Vector3 velocity, Transform transform, uint32_t
 		worldTransform_.rotation_.z = 4.75f;
 	}
 	worldTransform_.Initialize();
+
 	
 }
 
