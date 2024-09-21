@@ -187,8 +187,6 @@ void GameScene::Initialize()
 	particletextureHandle= textureManager_->Load("Resource/circle.png");
 	particle_ = std::make_unique<Particle>();
 	particle_->Initialize(10000);
-	spawnParticle_ = std::make_unique<Particle>();
-	spawnParticle_->Initialize(10000);
 	Transform t = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
 
 	worldTransformDropArie_.Initialize();
@@ -634,7 +632,6 @@ void GameScene::InGame() {
 		}
 	}
 	particle_->Update();
-	spawnParticle_->Update();
 }
 
 void GameScene::Tutorial() {
@@ -832,7 +829,6 @@ void GameScene::Tutorial() {
 		}
 	}
 	particle_->Update();
-	spawnParticle_->Update();
 	if(WaveManager::GetInstance()->IsClearTutorial()) {
 		for (IEnemy* enemy : enemys_) {
 			delete enemy;
@@ -841,7 +837,6 @@ void GameScene::Tutorial() {
 			delete bullet;
 		}
 		particle_->Cler();
-		spawnParticle_->Cler();
 		bullets_.clear();
 		enemys_.clear();
 		isInGame_ = false;
@@ -890,7 +885,6 @@ void GameScene::Draw3D()
 	blueMoon_->PariclePreDraw();
 	
 		particle_->Draw(viewProjection_, { 1.0f,1.0f,1.0f,1.0f }, particletextureHandle);
-		spawnParticle_->Draw(viewProjection_, { 1.0f,1.0f,1.0f,1.0f }, particletextureHandle);
 	
 	blueMoon_->ModelPreDrawWireFrame();
 
@@ -1145,7 +1139,6 @@ void GameScene::ReStart()
 		delete bullet;
 	}
 	particle_->Cler();
-	spawnParticle_->Cler();
 	bullets_.clear();
 	enemys_.clear();
 	player_->DethAnimation();

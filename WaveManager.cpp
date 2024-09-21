@@ -257,7 +257,7 @@ void WaveManager::Update() {
 			transform.translate = enemy.translate;
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[EnemyPop], Audio::GetInstance()->SoundVolume[EnemyPop]);
 			Vector4 color = { 1.0f,0.0f,0.0f,1.0f };
-			gameScene_->spawnParticle_->AddParticle({ transform,random,color }, 10);
+			gameScene_->particle_->AddParticle({ transform,random,color }, 10);
 			switch (enemy.type)
 			{
 			case kBullet://0
@@ -431,7 +431,7 @@ void WaveManager::TutorialUpdate() {
 			transform.translate = enemy.translate;
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[EnemyPop], Audio::GetInstance()->SoundVolume[EnemyPop]);
 			Vector4 color = { 1.0f,0.0f,0.0f,1.0f };
-			gameScene_->spawnParticle_->AddParticle({ transform,random,color }, 10);
+			gameScene_->particle_->AddParticle({ transform,random,color }, 10);
 			switch (enemy.type)
 			{
 			case kBullet://0

@@ -63,7 +63,6 @@ public:
 	std::unique_ptr<Model>targetballEnemyModel_;
 	std::unique_ptr<Model>reverceEnemyModel_;
 	std::unique_ptr<Particle> particle_;
-	std::unique_ptr<Particle> spawnParticle_;
 private:
 
 	BlueMoon* blueMoon_;
