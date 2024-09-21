@@ -89,6 +89,7 @@ void PlayerAimBallEnemy::isCollision(OBB pertner)
 	if (behavior_ == Behavior::kAtack) {
 		worldTransform_.translation_ = prePos_;
 		behaviorRequest_ = Behavior::kLeave;
+		worldTransform_.scale_ = Multiply(0.8f, worldTransform_.scale_);
 	}
 }
 
