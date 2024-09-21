@@ -559,10 +559,10 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 				rotate = Multiply(rotate, MakeRotateXMatrix(3.141592f));
 			}
 			worldTransformArrows_[index].rotation_ = TransformNormal(worldTransformArrows_[index].rotation_, rotate);
-			worldTransformArrows_[index].scale_ = { 30.0f,30.0f,1.0f };
+			worldTransformArrows_[index].scale_ = { 120.0f,120.0f,1.0f };
 			worldTransformArrows_[index].translation_ = worldTransformCortions_[index].translation_;
-			worldTransformArrows_[index].translation_.x -= worldTransformArrows_[index].scale_.x * -0.5f * Normalise(data.velocity).x;
-			worldTransformArrows_[index].translation_.y -= worldTransformArrows_[index].scale_.y * -0.5f * Normalise(data.velocity).y;
+			//worldTransformArrows_[index].translation_.x -= worldTransformArrows_[index].scale_.x * -0.5f * Normalise(data.velocity).x;
+			//worldTransformArrows_[index].translation_.y -= worldTransformArrows_[index].scale_.y * -0.5f * Normalise(data.velocity).y;
 			worldTransformArrows_[index].translation_.z += 0.1f;
 			worldTransformArrows_[index].matWorld_ = Multiply(Multiply(MakeScaleMatrix(worldTransformArrows_[index].scale_), rotate), MakeTranslateMatrix(worldTransformArrows_[index].translation_));
 			worldTransformArrows_[index].TransferMatrix();
