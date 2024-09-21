@@ -30,10 +30,6 @@ const D3D12_GPU_DESCRIPTOR_HANDLE Texturemanager::GetGPUHandle(uint32_t textureH
 	return GPUHandle;
 }
 
-
-
-
-
 //テクスチャデータを読み込む
 DirectX::ScratchImage Texturemanager::LoadTexture(const std::string& filePath)
 {
@@ -74,7 +70,6 @@ Microsoft::WRL::ComPtr<ID3D12Resource> Texturemanager::CreateTextureResource(ID3
 	return resource;
 }
 
-
 uint32_t Texturemanager::LoadTexture(const std::string& filePath, uint32_t index)
 {
 	if (!name_.empty()) {
@@ -109,9 +104,6 @@ uint32_t Texturemanager::LoadTexture(const std::string& filePath, uint32_t index
 	SrvHeap_->AddIndex();
 	return SrvHeap_->GetIndex() - 1;
 }
-
-
-
 
 [[nodiscard]]
 Microsoft::WRL::ComPtr<ID3D12Resource> Texturemanager::UploadtextureData(ID3D12Resource* texture, const DirectX::ScratchImage& mipImages, uint32_t index) {

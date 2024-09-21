@@ -15,6 +15,7 @@ public:
 	void Initialize(uint32_t Drawparticle);
 	void Draw(const ViewProjection& viewProjection, const Vector4& material, uint32_t index);
 	void Update();
+	void AddColorUpdate(Vector4 color);
 	void Finalize();
 	void AddParticle(const Emitter& emitter, const int& count);
 	void Cler();

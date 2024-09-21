@@ -10,8 +10,6 @@ AimBulletEnemy::~AimBulletEnemy()
 }
 
 void AimBulletEnemy::Initialize(const Transform& transform, const Vector3& velocity, float moveSpeed, uint32_t texture,  Model* model){
-	/*sphere_ = std::make_unique<Sphere>();
-	sphere_->Initialize();*/
 	mainmodel.reset(Model::CreateModelFromObj("Resource/Enemy", "bulletMother.obj"));
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = transform.translate;
@@ -32,6 +30,7 @@ void AimBulletEnemy::Initialize(const Transform& transform, const Vector3& veloc
 
 void AimBulletEnemy::Update()
 {
+
   currentCollTime_++;
   worldTransform_.rotation_.y += currentAtackCount_ / 15.0f;
   Matrix4x4 rotateMatrix = MakeRotateMatrix(Vector3{ 0.0f,0.0f,0.0f });

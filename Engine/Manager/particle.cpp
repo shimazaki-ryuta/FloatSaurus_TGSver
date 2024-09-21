@@ -144,8 +144,33 @@ void Particle::Update()
 			++iterator;
 		}
 	}
-
 }
+void Particle::AddColorUpdate(Vector4 color)
+{
+	const float kDeltTime = 1.0f / 60.0f;
+	DrawInstanceNum_ = 0;
+	instanceCount = 0;
+	for (std::list<ParticleData>::iterator iterator = particles_.begin();
+		iterator != particles_.end(); ) {
+		if (DrawInstanceNum_ < kNumMaxInstance_) {
+			if ((*iterator).lifeTime <= (*iterator).currentTime) {
+				(*iterator).isAlive = false;
+				iterator = particles_.erase(iterator);
+				continue;
+			}
+			instancingData[instanceCount].World = MakeIdentity4x4();
+			(*iterator).transform.translate = Add((*iterator).transform.translate, (*iterator).velocity * kDeltTime);
+			(*iterator).currentTime += kDeltTime;
+			instancingData[instanceCount].Color = (*iterator).color + color;
+			materialData_->color = (*iterator).color + color;
+			++DrawInstanceNum_;
+			++instanceCount;
+			++iterator;
+		}
+	}
+}
+
+
 void Particle::Finalize()
 {
 

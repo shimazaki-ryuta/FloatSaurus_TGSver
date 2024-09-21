@@ -44,7 +44,7 @@ void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity
 		worldTransform_.rotation_.z = 4.75f;
 	}
 	if (velocity_.z < 0.0f) {
-		worldTransform_.rotation_.z= 1.6f;
+		worldTransform_.rotation_.z = 1.6f;
 		worldTransform_.rotation_.y = -4.75f;
 	}
 	worldTransform_.UpdateMatrix();
@@ -53,12 +53,13 @@ void BulletEnemy::Initialize(const Transform& transform, const Vector3& velocity
 
 void BulletEnemy::Update()
 {
+
 	currentCount++;
-	
-	
-		worldTransform_.rotation_.x += 0.2f;
-	
-	
+
+
+	worldTransform_.rotation_.x += 0.2f;
+
+
 	if (currentCount >= startCount_) {
 		worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_ * 1.2f);
 
@@ -67,8 +68,8 @@ void BulletEnemy::Update()
 		obb_.center = worldTransform_.translation_;
 		GetOrientations(rotateMatrix, obb_.orientation);
 	}
-	
-		worldTransform_.UpdateMatrix();
+
+	worldTransform_.UpdateMatrix();
 }
 
 void BulletEnemy::Draw(const ViewProjection& viewProjection)

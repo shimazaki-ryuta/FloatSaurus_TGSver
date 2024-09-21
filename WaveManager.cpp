@@ -257,7 +257,7 @@ void WaveManager::Update() {
 			transform.translate = enemy.translate;
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[EnemyPop], Audio::GetInstance()->SoundVolume[EnemyPop]);
 			Vector4 color = { 1.0f,0.0f,0.0f,1.0f };
-			gameScene_->particle_->AddParticle({ transform,random,color }, 10);
+			gameScene_->spawnParticle_->AddParticle({ transform,random,color }, 10);
 			switch (enemy.type)
 			{
 			case kBullet://0
@@ -430,8 +430,8 @@ void WaveManager::TutorialUpdate() {
 			transform.rotate = { 0,0,0 };
 			transform.translate = enemy.translate;
 			Audio::GetInstance()->SoundPlayWave(Audio::GetInstance()->handle_[EnemyPop], Audio::GetInstance()->SoundVolume[EnemyPop]);
-			Vector4 color = { 0.0f,1.0f,0.0f,1.0f };
-			gameScene_->particle_->AddParticle({ transform,random,color }, 10);
+			Vector4 color = { 1.0f,0.0f,0.0f,1.0f };
+			gameScene_->spawnParticle_->AddParticle({ transform,random,color }, 10);
 			switch (enemy.type)
 			{
 			case kBullet://0
@@ -547,7 +547,7 @@ void WaveManager::Draw3D(const ViewProjection& viewProjection) {
 	toCameraRotate.m[3][1] = 0;
 	toCameraRotate.m[3][2] = 0;
 	for (Vector3& position : cortion_) {
-		worldTransformCortions_[index].scale_ = { 3.0f,3.0f,1.0f };
+		worldTransformCortions_[index].scale_ = { 4.0f,4.0f,1.0f };
 		worldTransformCortions_[index].translation_ = position;
 		if (std::abs(position.x) > 52.0f || (position.y > 52.0f || position.y < 0)) {
 			worldTransformCortions_[index].translation_.x = std::clamp(position.x, -52.0f, 52.0f);

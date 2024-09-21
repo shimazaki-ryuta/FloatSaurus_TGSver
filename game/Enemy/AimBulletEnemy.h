@@ -28,5 +28,6 @@ private:
 	int currentAtackCount_;
 	void Atack();
 	Vector3 BulletScale_;
+
 };
 

@@ -22,6 +22,8 @@ public:
 	MaterialData LoadMaterialTemplateFile(const std::string& directoryPath, const std::string& filename);
 	void SetColor(Vector4 col) { color = col; }
 	void setIsLighting(bool flag) { material_->enableLighting = flag; }
+
+	Material* material_;
 private:
 	Texturemanager* textureManager_;
 	DirectXCommon* dxCommon_;
@@ -32,7 +34,7 @@ private:
 	Microsoft::WRL::ComPtr<ID3D12Resource> wvpResource_;
 	Transformmatrix* wvpData_;
 	Microsoft::WRL::ComPtr<ID3D12Resource> materialResource_;
-	Material* material_;
+
 	BlueMoon* engine_;
 	uint32_t texture_;
 	Vector4 color = { 1.0f,1.0f,1.0f,1.0f };
